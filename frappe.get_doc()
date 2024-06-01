@@ -1,0 +1,8 @@
+frappe.get_doc()
+
+
+frappe.get_doc(doctype, name)
+
+def get_document(self):
+	doc=frappe.get_doc('Parent Doc',self.parent_doc_link)   // doctype , fieldname
+	frappe.msgprint(__("the parent full name is {0} ").format(doc.full_name,doc.age))

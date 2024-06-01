@@ -1,0 +1,19 @@
+frappe.db.exists() & frappe.db.count()
+======================================
+frappe.db.exists(doctype,name)
+
+def validate(self):
+	if frappe.db.exists('Parent Doc','Anu')
+		frappe.msgprint(__('this document exits in database'))
+	else:
+		frappe.msgprint(__('The document is does not exits in database'))
+		
+		
+======================================
+frappe.db.count()
+
+frappe.db.count(doctype,filters)
+
+def validate(self):
+	doc_count = frappe.db.count('Parent Doc',{'enable':1})
+	frappe.msgprint(__("The Enable Document count Value is {0}").format(doc_count))

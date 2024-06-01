@@ -1,0 +1,28 @@
+frappe.ui.form.on('Overtime', {
+    refresh: function(frm) {
+        // Use frm.doc.posting_date to access the posting_date field
+        console.log(frm.doc.posting_date);
+        
+        // Get the current document's data using frm.doc
+        let row = frm.doc;
+        
+        // Use frappe.call to fetch data from the server
+        frappe.call({
+            method: 'frappe.client.get_list',
+            args: {
+                doctype: 'Attendance',
+                filters: {
+                    'attendance_date': '2024-03-05'
+                }
+            },
+            callback: function(response) {
+                // Handle the response from the server
+                let attendance_data = response.message;
+                console.log(row, attendance_data);
+            }
+        });
+    }
+});
+
+
+==============================================================

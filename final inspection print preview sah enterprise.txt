@@ -1,0 +1,616 @@
+
+	<style type="text/css">
+	.heading-right {	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 25px;
+	font-weight: bold;
+	text-align:right;
+	color:076ba0;
+}
+#border-bottom {	
+border-bottom:solid 3px;
+border-bottom-color:#076ba0;
+
+
+}
+#border-comp {	
+border:solid 1px;
+border-color:#076ba0;
+
+
+}
+.address-heading {	font-family:Arial, Helvetica, sans-serif;
+	font-size:15px;
+	font-weight:bold;
+}
+.address {	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+}
+.heading-right {	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 25px;
+	font-weight: bold;
+	text-align:right;
+	color:076ba0;
+}
+ *td {
+  border-collapse: collapse; padding:0.2;	
+}
+		.address {	font-family:Arial, Helvetica, sans-serif;
+			font-size:13px;
+		}
+		.address-heading {	font-family:Arial, Helvetica, sans-serif;
+			font-size:15px;
+			font-weight:bold;
+		}
+		.address-heading-center {	font-family:Arial, Helvetica, sans-serif;
+			font-size:15px;
+			font-weight:bold;
+			text-align:center;
+		}
+		.heading1 {	font-family: "Arial Black", Gadget, sans-serif;
+			font-size: 13px;
+			text-align:center;
+			color:076ba0;
+		}
+		.heading {	font-family: "Arial Black", Gadget, sans-serif;
+			font-size: 20px;
+			font-weight: bold;
+			text-align:center;
+			color:076ba0;
+		}
+		.normal-content {		font-family:Arial, Helvetica, sans-serif;
+			font-size:14px;
+			text-align:left;
+		}
+		.normal-content-center {		font-family:Arial, Helvetica, sans-serif;
+			font-size:14px;
+			text-align:center;
+		}
+		
+		.normal-content-bold-center {		font-family:Arial, Helvetica, sans-serif;
+			font-size:14px;
+			text-align:center;
+			font-weight:bold;
+		}
+		.normal-content-bold-left {		font-family:Arial, Helvetica, sans-serif;
+			font-size:14px;
+			text-align:left;
+			font-weight:bold;
+		}
+		.normal-content-bold-right {		font-family:Arial, Helvetica, sans-serif;
+			font-size:14px;
+			text-align:right;
+			font-weight:bold;
+		}
+		#border-bottom {	
+		border-bottom:solid 3px;
+		border-bottom-color:#076ba0;
+		
+		
+		}
+		#border-bottom-light {	
+		border-bottom:solid 2px;
+		border-bottom-color:#076ba0;
+		
+		
+		}
+		#border-bottom-grey {	
+		border-bottom:solid 2px;
+		border-bottom-color:#CCC;
+		
+		
+		}
+		#border-bottom-right {	
+		border-right:solid 2px;
+		border-right-color:#076ba0;
+		
+		
+		}
+		.aa{
+			font-size: 13px;
+			/*font-weight:bold;*/
+		}
+		.bb{
+		    font-weight:bold;
+		}
+		.head{ font-weight:bold; padding:-1px;}
+    .style5 {color: #FFFFFF}
+    .style7 {font-family: "Arial Black", Gadget, sans-serif; font-size: 25px; font-weight: bold; text-align: center; color: 076ba0; }
+	
+	
+	
+
+	.tab2 tr { 
+	line-height:1;
+}
+    </style>
+		
+
+
+
+<table width="100%">
+  <tr>
+    <td id="border-bottom"><img src="https://erp.sahexports.com/files/SAH_logo.png" width="200px"><br>
+      <span class="address-heading">(HOME TEXTILE DIVISION)</span><br><span class="address">Plot # :4,5,6,13,14,15, Sector B-IX, <br>
+Karachi Export Processing Zone,<br>
+Karachi 75150 Pakistan.<br>
+Ph 021-35080157<br>
+Website : www.sahent.com</span></td>
+    <td width="40%" class="heading-right" id="border-bottom">Final Inspection Report<br>{{doc.name}}</td>
+  </tr>
+
+</table>
+	
+	<br />
+<table width="100%">
+  <tr>
+    <td width="9%" style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;"><span class="head">Date:<br />Customer:<br />PO:</span></td>
+    <td width="18%"  style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;"><strong>{{doc.get_formatted('reporting_date')}}<br />{{doc.buyer_agent or ''}}<br />{{doc.po or ''}}</strong></td>
+    <td width="6%"  style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;">&nbsp;</td>
+    <td width="14%"  style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;"><span class="head">Order QTY:<br />Audit Qty:<br />Sample Qty:</span></td>
+    <td width="20%"  style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;"><strong>{{doc.fir_ct[0].qty or ''}}<br />{{doc.fir_ct[0].audit_qty or ''}}<br />{{doc.fir_ct[0].sample_qty or ''}}</strong></td>
+    <td width="5%"  style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;">&nbsp;</td>
+    <td width="14%"  style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;"><strong>Inspection Level:<br />AQL Major:<br />AQL Minor:</strong></td>
+    <td width="14%"  style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;"><strong>{{doc.inspection_level or ''}}<br />{{doc.aql_major or ''}}<br />{{doc.aql_minor or ''}}</strong></td>
+  </tr>
+</table>
+
+
+<br />
+<table width="100%" height="29%" border="1">
+  <tr style=" background-color:#E8E8E8">
+    <td width="13%" height="42"><strong>Size</strong></td>
+    <td width="24%"><strong>Article</strong></td>
+    <td width="12%" align="center"><strong>AQL Major Accepted</strong></td>
+    <td width="11%" align="center"><strong>AQL Minor Accepted</strong></td>
+    <td colspan="3"><div align="center"><strong>AQL</strong></div></td>
+    <td width="8%"><strong>Status</strong></td>
+  </tr>{%- for row in doc.fir_ct-%}
+  <tr>
+    <td rowspan="2" class="tab2"><strong>{{row.at_finished_size}}</strong></td>
+    <td rowspan="2"><strong>{{row.at_article}}</strong></td>
+    <td rowspan="2" align="center"><div align="center"><strong>{{row.aql_accepted}}</strong></div></td>
+    <td rowspan="2" align="center"><div align="center"><strong>{{row.aql_rejected}}</strong></div></td>
+    <td width="16%" height="23" ><div align="center"><strong>Major</strong></div></td>
+    <td width="8%"><div align="center"><strong>Minor</strong></div></td>
+    <td width="8%"><div align="center"><strong>Critical</strong></div></td>
+    <td rowspan="2"><strong>{{row.status}}</strong></td>
+  </tr>
+  <tr>
+    <td><div align="center"><strong>{{row.major}}</strong></div></td>
+    <td><div align="center"><strong>{{row.minor}}</strong></div></td>
+    <td><div align="center"><strong>{{row.critical}}</strong></div></td>
+  </tr>
+</table>
+{%-endfor-%}
+<br />
+<table width="100%" border="1px"  class="head">
+  <tr >
+    <td width="19%">Checkpoint</td>
+   
+    <td width="9%">Critical</td>
+    <td width="9%">Major</td>
+    <td width="9%">Minor</td>
+    <td width="19%">Checkpoint</td>
+   
+    <td width="9%">Critical</td>
+    <td width="9%">Major</td>
+    <td width="9%">Minor</td>
+  </tr>
+   
+     
+</table>
+ 
+<table width="50%" border="1px" style="float:left; font-weight:bold;" class="tab2" > 
+  <tr>
+    <td colspan="5" align="center"style="font-weight:bold; font-size;15px; background-color:#E8E8E8" >Weaving / Processing</td>
+  </tr>
+  <tr>
+    <td width="40%"  class="head">Mis Pick / Double Pick	</td>
+    
+    <td width="20%">{{doc.fir_ct[0].miss_pick__double_pick_critical  or ''}}</td>
+    <td width="20">{{doc.fir_ct[0].miss_pick__double_pick_major or ''}}</td>
+    <td width="20%">{{doc.fir_ct[0].miss_pick__double_pick_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Fly Yarn</td>
+  
+    <td width="">{{doc.fir_ct[0].fly_yarn_critical or ''}}</td>
+    <td width="">{{doc.fir_ct[0].fly_yarn_major or ''}}</td>
+    <td width="">{{doc.fir_ct[0].fly_yarn_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td   class="head">Smash</td>
+   
+    <td>{{doc.fir_ct[0].smash_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].smash_major or ''}}</td>
+    <td>{{doc.fir_ct[0].smash_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Incorrect Construct	</td>
+    
+    <td>{{doc.fir_ct[0].incorrect_construct_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].incorrect_construct_major or ''}}</td>
+    <td>{{doc.fir_ct[0].incorrect_construct_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Bowing
+	</td>
+  
+    <td>{{doc.fir_ct[0].bowing_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].bowing_major or ''}}</td>
+    <td>{{doc.fir_ct[0].bowing_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Registration Out	
+</td>
+    
+    <td>{{doc.fir_ct[0].registration_out_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].registration_out_major or ''}}</td>
+    <td>{{doc.fir_ct[0].registration_out_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Mis Print	
+</td>
+    
+    <td>{{doc.fir_ct[0].miss_print_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].miss_print_major or ''}}</td>
+    <td>{{doc.fir_ct[0].miss_print_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Touching	
+</td>
+    
+    <td>{{doc.fir_ct[0].touching_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].touching_major or ''}}</td>
+    <td>{{doc.fir_ct[0].touching_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Streaks	
+</td>
+   
+    <td>{{doc.fir_ct[0].streaks_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].streaks_major or ''}}</td>
+    <td>{{doc.fir_ct[0].streaks_minor or ''}}</td>
+  </tr>
+    <tr>
+    <td  class="head">Selvedge	
+</td>
+   
+    <td>{{doc.fir_ct[0].salvage_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].salvage_major or ''}}</td>
+    <td>{{doc.fir_ct[0].salvage_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td colspan="5" align="center"style="font-weight:bold; background-color:#E8E8E8">Sewing</td>
+  </tr>
+  <tr>
+    <td width=""  class="head">Missing / Wrong Label</td>
+   
+    <td>{{doc.fir_ct[0].mwc_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].mwl_major or ''}}</td>
+    <td>{{doc.fir_ct[0].mwl_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Uneven Stitch</td>
+ 
+    <td>{{doc.fir_ct[0].us_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].us_major or ''}}</td>
+    <td>{{doc.fir_ct[0].us_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Broken / Loose Stitch</td>
+    
+    <td>{{doc.fir_ct[0].bls_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].bls_major or ''}}</td>
+    <td>{{doc.fir_ct[0].bls_minor or ''}}</td>
+  </tr>
+  <tr>
+
+    <td  class="head">Open Hem / Seam</td>
+    
+    <td>{{doc.fir_ct[0].ohs_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].ohs_major or ''}}</td>
+    <td>{{doc.fir_ct[0].ohs_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Wrong Thread	
+</td>
+   
+    <td>{{doc.fir_ct[0].wt_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].wt_major or ''}}</td>
+    <td>{{doc.fir_ct[0].wt_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Puckering
+</td>
+ 
+    <td>{{doc.fir_ct[0].p_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].p_major or ''}}</td>
+    <td>{{doc.fir_ct[0].p_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td height="33"  class="head">Bad Stitch</td>
+    
+    <td>{{doc.fir_ct[0].ms_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].bs_major or ''}}</td>
+    <td>{{doc.fir_ct[0].bs_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td  class="head">Wrong Direction	
+</td>
+    
+    <td>{{doc.fir_ct[0].wd_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].wd_major or ''}}</td>
+    <td>{{doc.fir_ct[0].wd_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td height="23"  class="head">Short Size</td>
+    
+    <td>{{doc.fir_ct[0].ss_critical or ''}}</td>
+    <td>{{doc.fir_ct[0].ss_major or ''}}</td>
+    <td>{{doc.fir_ct[0].ss_minor or ''}}</td>
+  </tr>
+  <tr>
+
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+  </tr>
+  <tr>
+
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+  </tr>
+   
+
+</table>
+<table width="50%" style="float:left; font-weight:bold;"  border="1px" class="tab2">
+  <tr>
+    <td colspan="4" align="center" style="font-weight:bold; background-color:#E8E8E8">Finishing</td>
+  </tr>
+  <tr>
+    <td width="40%">Un cut / Loose Thread</td>
+
+   
+	<td width="20%">{{doc.fir_ct[0].un_cut_critical or ''}}</td>
+	<td width="20%">{{doc.fir_ct[0].un_cut_major or ''}}</td>
+	<td width="20%">{{doc.fir_ct[0].un_cut_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Oil Stain</td>
+    
+	<td width="">{{doc.fir_ct[0].os_critical or ''}}</td>
+	<td width="">{{doc.fir_ct[0].os_major or ''}}</td>
+	<td width="">{{doc.fir_ct[0].os_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Wash Mark</td>
+   
+	<td width="15%">{{doc.fir_ct[0].wm_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].wm_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].wm_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Cliper Cut</td>
+    
+	<td width="15%">{{doc.fir_ct[0].cc_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].cc_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].cc_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Needle Hole</td>
+   
+	<td width="15%">{{doc.fir_ct[0].nh_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].nh_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].nh_minor or ''}}</td>
+  </tr>
+    <tr>
+    <td>Dust Mark</td>
+   
+	<td width="15%">{{doc.fir_ct[0].dm_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].dm_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].dm_minor or ''}}</td>
+  </tr>
+
+  
+ <tr>
+    <td colspan="4" align="center"style="font-weight:bold;background-color:#E8E8E8 ">Packing	</td>
+  </tr>
+  <tr>
+    <td>Wrong / Missing Barcode</td>
+    
+	<td width="15%">{{doc.fir_ct[0].wmb_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].wmb_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].wmb_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td height="27">Wrong / Missing Size</td>
+   
+	<td width="15%">{{doc.fir_ct[0].wms_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].wms_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].wms_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Rejected / Wrong Inlay	
+</td>
+  
+	<td width="15%">{{doc.fir_ct[0].rwi_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].rwi_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].rwi_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Damaged Poly Bags	
+</td>
+  
+	<td width="15%">{{doc.fir_ct[0].dpb_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].dpb_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].dpb_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Loose / Buldgy Bag	
+</td>
+   
+	<td width="15%">{{doc.fir_ct[0].lbb_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].lbb_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].lbb_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Incorrect filling</td>
+    
+	<td width="15%">{{doc.fir_ct[0].if_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].if_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].if_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Powder / Dust in Poly Bag	
+</td>
+    
+	<td width="15%">{{doc.fir_ct[0].pdpb_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].pdpb_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].pdpb_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Mis Matching	
+</td>
+   
+	<td width="15%">{{doc.fir_ct[0].mm_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].mm_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].mm_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Bad Presentation	
+</td>
+   
+	<td width="15%">{{doc.fir_ct[0].bp_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].bp_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].bp_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Wrong Assortment	
+</td>
+    
+	<td width="15%">{{doc.fir_ct[0].wa_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].wa_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].wa_minor or ''}}</td>
+  </tr>
+ <tr>
+    <td colspan="4" align="center" style="font-weight:bold; background-color:#E8E8E8">Cartons</td>
+  </tr>
+  <tr>
+    <td>Damaged Cartons	
+</td>
+   
+	<td width="15%">{{doc.fir_ct[0].dc_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].dc_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].dc_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Wrong / Misprint Macking	
+</td>
+   
+	<td width="15%">{{doc.fir_ct[0].wmm_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].wmm_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].wmm_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Wrong Size	
+</td>
+   
+	<td width="15%">{{doc.fir_ct[0].ws_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].ws_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].ws_minor or ''}}</td>
+  </tr>
+  <tr>
+    <td>Wrong Barcode Sticker	
+</td>
+    
+	<td width="15%">{{doc.fir_ct[0].wbs_critical or ''}}</td>
+	<td width="16%">{{doc.fir_ct[0].wbs_major or ''}}</td>
+	<td width="15%">{{doc.fir_ct[0].wbs_minor or ''}}</td>
+  </tr>
+ 
+</table><br>
+<table width="100%" > 
+<tr>
+<td width="10%"></td>
+<td width="90%"></td>
+</tr>
+</table>
+<table width="100%" > 
+<tr>
+<td width="7%">
+  <strong>Remarks:</Strong></td>
+<td width="93%" id="border-bottom-grey">{{doc.remarks or '____________________________________________________________________________________________________________________________________________________________________________________'}}</td>
+</tr>
+</table>
+
+<br />
+<br />
+<br />
+
+<table width="100%" align="center">
+  <tr>
+    <td id="border-bottom" class="normal-content-bold-center" width="20%"><br>    </td>
+    <td width="20%">&nbsp;</td>
+    <td id="border-bottom" class="normal-content-bold-center" width="20%"><br></td>
+    <td width="20%"></td>
+    <td width="20%" id="border-bottom" class="normal-content-bold-center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="normal-content-bold-center">Prepared By<br>
+     {{ frappe.get_fullname(doc.owner) }}<br>
+     {{ doc.get_formatted('creation') }}
+       {{ frappe.get_fullname(doc.owner) }}</td>
+    <td>&nbsp;</td>
+    {% set check_user, check_date = frappe.db.get_value("Comment", {"reference_name": doc.name, "content": "Checking Complete"}, ["owner", "creation"]) %}
+    {% if check_date and check_user %}
+      <td class="normal-content-bold-center">Checked By<br> 
+        {{ frappe.get_fullname(check_user) }}<br>
+        {% if check_date %}
+          {{ check_date.strftime('%d %b %Y %H:%M:%S') }}
+        {% else %}
+          No date available
+        {% endif %}
+      </td>
+    {% else %}
+      <td class="normal-content-bold-center">Checked By<br>
+        <p>No approval details found.</p>
+      </td>
+    {% endif %}
+    <td class="normal-content-bold-center">&nbsp;</td>
+     {% set approve_user, approve_date = frappe.db.get_value("Comment", {"reference_name": doc.name, "content": "Approved"}, ["owner", "creation"]) %}
+    {% if approve_user and approve_date %}
+      <td class="normal-content-bold-center">Approved By<br> 
+        {{ frappe.get_fullname(approve_user) }}<br>
+        {% if approve_date %}
+          {{ approve_date.strftime('%d %b %Y %H:%M:%S') }}
+        {% else %}
+          No date available
+        {% endif %}
+      </td>
+    {% else %}
+      <td class="normal-content-bold-center">Approved By<br>
+        <p>No approval details found.</p>
+      </td>
+    {% endif %}
+  </tr>
+</table>

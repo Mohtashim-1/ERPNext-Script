@@ -1,0 +1,76 @@
+api working with client scripts 
+
+server scripts
+
+payload_data = frappe.form.dict
+
+frappe.response['message'] = frappe.get_doc("Bin","6c6daab8b8")
+# frappe.db.get_value('Bin'
+# ,{"item_code":payload_data.item_code,"warehouse":payload_data.warehouse}, 
+#     "actual_qty"
+#     )
+# frappe.get_doc('Bin',{"item_code": payload_data.item_code})
+# frappe.get_last_doc('Bin',filters={"item_code":payload_data.item_code})
+# frappe.get_doc("Bin","6c6daab8b8")
+
+
+client scripts
+
+frappe.ui.form.on('Stock Entry', {
+	refresh(frm) {
+		frm.trigger('prepare_custom_button')
+	},
+	
+	prepare_custom_button(frm){
+	    frm.add_custom_button(__("Get Available Stock"),()=>{
+	        let fields = get_prompt_fields()
+	        
+	        frappe.prompt(fields,(d)=>{
+	            frm.events.get_available_stock(d)
+	        },__("Set Values"),__("Get Stock"))
+	    })
+	},
+	get_available_stock(frm ,dialog_values){
+	    frappe.call({
+	        method:'get_available_stock',
+	        args: dialog_values,
+	        callback(r){
+	            if(r.message){
+	                frappe.model.add_child('items',{
+	                   // "item_code": dialog_values.item_code,
+	                   // "s_warehouse":dialog_values.warehouse,
+	                    "item_code":r.item_code,
+	                    "s_warehouse":r.warehouse,
+	                   // "qty":r.message,
+	                   // "stock_qty": r.message,
+	                   // "conversion_factor":1.0,
+	                    
+	                }
+	                )
+	            }
+	        }
+	    }
+	    )
+	}
+})
+
+var get_prompt_fields = () =>{
+    return [
+        {
+            label:__('Item Code'),
+            fieldname:'item_code',
+            fieldtype:'Link',
+            options:'Item'
+        },
+        {
+            label:__('Warehouse'),
+            fieldname:'warehouse',
+            fieldtype:'Link',
+            options:'Warehouse'
+        }   
+    ]
+}
+
+
+
+

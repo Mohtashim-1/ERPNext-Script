@@ -1,0 +1,18 @@
+frappe.db.get_value & frappe.db.set_value
+
+from frappe import
+from frappe.model.document import document
+
+class childdoc(document):
+
+	frappe.db.get_value(doctype, name, fieldname)
+
+	def validate(self):
+		self.get_value()
+		
+	def get_value(self):
+		first_name, last_name = frappe.db.get_value('Parent Doc','Anu',[first_name,last_name])
+		frappe.msgprint(__('the first name is {0} and the last name is {1}').format(first_name,last_name))
+
+=========================================
+

@@ -1,0 +1,6 @@
+
+frappe@mohtashim:~/frappe-bench$ ls -l sites/test.com/private/backups/
+total 1124
+-rw-rw-r-- 1 frappe frappe 1143970 Mar  9 12:00 20240309_170004-test_com-database.sql.gz
+-rw-rw-r-- 1 frappe frappe     118 Mar  9 12:00 20240309_170004-test_com-site_config_backup.json
+frappe@mohtashim:~/frappe-bench$

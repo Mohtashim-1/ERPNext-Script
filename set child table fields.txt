@@ -1,0 +1,11 @@
+// set child table fields
+=============================
+enable:function(frm){
+	let row = frm.add_child('date_and_values_section',{ // child table name which is in parent doctype
+		date: "2024-01-01 or 01/01/2024 or frappe.datetime.get_today()",
+		value1= 10,
+		value2=20
+	})
+	frm.refresh_fields("date_and_values_section") //refresh method will refresh the child table
+}
+

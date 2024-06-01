@@ -1,0 +1,23 @@
+create custom button
+
+=========================
+
+refresh:function(frm){
+	frm.add_custom_button('Click Me',{}=>{
+		frappe.msgprint(__{'You Clicked'})
+	}),
+	frm.add_custom_button('Click Me1',{}=>{
+		frappe.msgprint(__{'You Clicked'})
+	})
+}
+===============================
+add dropdown button
+
+refresh:function(frm){
+	frm.add_custom_button('Click Me',{}=>{
+		frappe.msgprint(__{'You Clicked'})
+	},'click me'),
+	frm.add_custom_button('Click Me1',{}=>{
+		frappe.msgprint(__{'You Clicked'})
+	},'click me')
+}

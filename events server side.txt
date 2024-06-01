@@ -1,0 +1,25 @@
+// validate event
+
+def validate(self): // run before the save of document
+	frappe.msgprint("hello world")
+
+def before_save(self): // run before the save of document
+	frappe.throw("hello world")
+
+def after_insert(self): 
+	frappe.throw("hello world")
+	
+def on_update(self):
+	frappe.msgprint("hello world")
+	
+def before_submit(self): 
+	frappe.msgprint("hello world")
+	
+def on_submit(self): 
+	frappe.msgprint("hello world")
+	
+def on_cancel(self): 
+	frappe.msgprint("hello world")
+	
+def after_delete(self): 
+	frappe.msgprint("hello world"

@@ -1,0 +1,308 @@
+attendance doctype
+-------------------------------------------------
+attendance script 1 
+----------------------------------------------------
+frappe.ui.form.on('Attendance', {
+    shift: function(frm) {
+        if (frm.doc.shift) {
+            frappe.db.get_value('Shift Type', frm.doc.shift, ['start_time', 
+            // 'enable_entry_grace_period', 'late_entry_grace_period'
+            ])
+            .then(r => {
+                let data = r.message,
+                start_dt = new Date(frappe.datetime.now_date() + ' ' + data.start_time),
+                now_dt = new Date();
+                console.log('Shift start time: ' + data.start_time);
+                console.log('Shift start date & time: ' + moment(start_dt).format(frappe.defaultDatetimeFormat));
+                console.log('Date & time now: ' + moment(now_dt).format(frappe.defaultDatetimeFormat));
+                // if (data.enable_entry_grace_period && data.late_entry_grace_period) {
+                //     start_dt.setMinutes(start_dt.getMinutes() + data.late_entry_grace_period);
+                //     console.log('Shift\'s allowed late period: ' + data.late_entry_grace_period);
+                //     console.log('Late shift date & time: ' +  moment(start_dt).format(frappe.defaultDatetimeFormat));
+                // }
+                frm.set_value('late_entry', now_dt > start_dt ? 1 : 0);
+            });
+        } else {
+            frm.set_value('late_entry', 0);
+        }
+    }
+});
+
+=====================================================================
+attendance script 2 for number_of_late_days calculation
+=====================================================================
+
+
+
+--------------------------------------------------------------------------------------------------
+salary slip doctype 
+-------------------------------------------------------------------------------------------
+create a integer field in salary slip with number_of_late_days and this field will be read only 
+------------------------------------------------------------------------------------------
+frappe.ui.form.on('Salary Slip', {
+    employee: function(frm) {
+        frm.trigger('update_number_of_late_days');
+    },
+    start_date: function(frm) {
+        frm.trigger('update_number_of_late_days');
+    },
+    end_date: function(frm) {
+        frm.trigger('update_number_of_late_days');
+    },
+    update_number_of_late_days: function(frm) {
+        if (!frm.is_new() && !frm.is_dirty()) return;
+        if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+        frappe.db.get_list('Attendance', {
+            fields: ['name'],
+            filters: {
+                employee: frm.doc.employee,
+                late_entry: 1,
+                attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+            }
+        }).then(ret => {
+            let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+            if (count === late_days) return;
+            frm.set_value('number_of_late_days', count);
+            if (!frm.is_new()) {
+                frm.dirty();
+                frm.save();
+            }
+        });
+    }
+});
+------------------------------------------------------
+salary component for late_days
+
+condition : (number_of_late_days > 5)
+formula : (base / 30) * 1 
+
+then assign salary structure then till be effect in salary slip
+
+
+===============================================================
+frappe.ui.form.on('Salary Slip', {
+    get_number_of_late_days: function(frm) {
+        if (!frm.is_new() && !frm.is_dirty()) return;
+        if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+        frappe.db.get_list('Attendance', {
+            fields: ['name'],
+            filters: {
+                employee: frm.doc.employee,
+                late_entry: 1,
+                attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+            }
+        }).then(ret => {
+            let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+            if (count === late_days) return;
+            frm.set_value('number_of_late_days', count);
+            if (!frm.is_new()) {
+                frm.dirty();
+                frm.save();
+            }
+        });
+    }
+});
+
+// frappe.ui.form.on('Salary Slip', {
+//     refresh: function(frm) {
+//         frm.toggle_display('get_number_of_late_days', !frm.is_new());
+//     },
+//     employee: function(frm) {
+//         frm.trigger('update_number_of_late_days');
+//     },
+//     start_date: function(frm) {
+//         frm.trigger('update_number_of_late_days');
+//     },
+//     end_date: function(frm) {
+//         frm.trigger('update_number_of_late_days');
+//     },
+//     get_number_of_late_days: function(frm) {
+//         frm.trigger('sync_number_of_late_days');
+//     },
+//     update_number_of_late_days: function(frm) {
+//         if (!frm.is_new() && !frm.is_dirty()) return;
+//         frm.trigger('sync_number_of_late_days');
+//     },
+//     sync_number_of_late_days: function(frm) {
+//         if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+//         frappe.db.get_list('Attendance', {
+//             fields: ['name'],
+//             filters: {
+//                 employee: frm.doc.employee,
+//                 late_entry: 1,
+//                 attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+//             }
+//         }).then(ret => {
+//             let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+//             if (count === late_days) return;
+//             frm.set_value('number_of_late_days', count);
+//             if (!frm.is_new()) {
+//                 frm.dirty();
+//                 frm.save();
+//             }
+//         });
+//     }
+// });
+
+// frappe.ui.form.on('Salary Slip', {
+//     refresh: function(frm) {
+//         if (cint(frm.doc.number_of_late_days) === 0) frm.trigger('sync_number_of_late_days');
+//         frm.toggle_display('get_number_of_late_days', !frm.is_new());
+//     },
+//     employee: function(frm) {
+//         frm.trigger('update_number_of_late_days');
+//     },
+//     start_date: function(frm) {
+//         frm.trigger('update_number_of_late_days');
+//     },
+//     end_date: function(frm) {
+//         frm.trigger('update_number_of_late_days');
+//     },
+//     get_number_of_late_days: function(frm) {
+//         frm.trigger('sync_number_of_late_days');
+//     },
+//     update_number_of_late_days: function(frm) {
+//         if (!frm.is_new() && !frm.is_dirty()) return;
+//         frm.trigger('sync_number_of_late_days');
+//     },
+//     sync_number_of_late_days: function(frm) {
+//         if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+//         frappe.db.get_list('Attendance', {
+//             fields: ['name'],
+//             filters: {
+//                 employee: frm.doc.employee,
+//                 late_entry: 1,
+//                 attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+//             }
+//         }).then(ret => {
+//             let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+//             if (count === late_days) return;
+//             frm.set_value('number_of_late_days', count);
+//             if (!frm.is_new()) {
+//                 frm.dirty();
+//                 frm.save();
+//             }
+//         });
+//     }
+// });
+
+==========================================================
+script in salary slip which fetch late entry on the basis of a button get_number_of_late_days when user select late entry fetch and after salary slip save
+late calculation will be performed
+===========================================================
+frappe.ui.form.on('Salary Slip', {
+    get_number_of_late_days: function(frm) {
+        if (!frm.is_new() && !frm.is_dirty()) return;
+        if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+        frappe.db.get_list('Attendance', {
+            fields: ['name'],
+            filters: {
+                employee: frm.doc.employee,
+                late_entry: 1,
+                attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+            }
+        }).then(ret => {
+            let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+            if (count === late_days) return;
+            frm.set_value('number_of_late_days', count);
+            if (!frm.is_new()) {
+                frm.dirty();
+                frm.save();
+            }
+        });
+    }
+});
+
+===================================================
+ab ye dosri script hai yeh salary slip mai jab employee select karte hai tab bhi chal jati hai 
+=====================================================
+frappe.ui.form.on('Salary Slip', {
+    employee: function(frm) {
+        if (!frm.is_new() && !frm.is_dirty()) return;
+        if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+        frappe.db.get_list('Attendance', {
+            fields: ['name'],
+            filters: {
+                employee: frm.doc.employee,
+                late_entry: 1,
+                attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+            }
+        }).then(ret => {
+            let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+            if (count === late_days) return;
+            frm.set_value('number_of_late_days', count);
+            if (!frm.is_new()) {
+                frm.dirty();
+                frm.save();
+            }
+        });
+    }
+});
+==================================================
+ab payroll entry par dekhna hai kia hota hai 
+==================================================
+
+frappe.ui.form.on('Salary Slip', {
+    employee: function(frm) {
+        if (!frm.is_new() && !frm.is_dirty()) return;
+        if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+        frappe.db.get_list('Attendance', {
+            fields: ['name'],
+            filters: {
+                employee: frm.doc.employee,
+                late_entry: 1,
+                attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+            }
+        }).then(ret => {
+            let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+            if (count === late_days) return;
+            frm.set_value('number_of_late_days', count);
+            if (!frm.is_new()) {
+                frm.dirty();
+                frm.save();
+            }
+        });
+    }
+});
+================================================
+script which worked fine after save then click on button
+frappe.ui.form.on('Salary Slip', {
+    refresh: function(frm) {
+        frm.toggle_display('get_number_of_late_days', !frm.is_new());
+    },
+    employee: function(frm) {
+        frm.trigger('update_number_of_late_days');
+    },
+    start_date: function(frm) {
+        frm.trigger('update_number_of_late_days');
+    },
+    end_date: function(frm) {
+        frm.trigger('update_number_of_late_days');
+    },
+    get_number_of_late_days: function(frm) {
+        frm.trigger('sync_number_of_late_days');
+    },
+    update_number_of_late_days: function(frm) {
+        if (!frm.is_new() && !frm.is_dirty()) return;
+        frm.trigger('sync_number_of_late_days');
+    },
+    sync_number_of_late_days: function(frm) {
+        if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+        frappe.db.get_list('Attendance', {
+            fields: ['name'],
+            filters: {
+                employee: frm.doc.employee,
+                late_entry: 1,
+                attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+            }
+        }).then(ret => {
+            let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+            if (count === late_days) return;
+            frm.set_value('number_of_late_days', count);
+            if (!frm.is_new()) {
+                frm.dirty();
+                frm.save();
+            }
+        });
+    }
+});

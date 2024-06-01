@@ -1,0 +1,54 @@
+set value in docfields
+
+=========================
+validate:function(frm){
+	frm.set_value('full_name',frm.doc.first_name+" "+frm.doc.last_name,)
+}
+==================================
+dialog box
+====================================
+
+refresh:function(frm){
+	if(frm.is_new()){
+		let d = new frappe.ui.Dialog({
+		title: "Enter the parent details",
+		fields:[
+		{
+			label:'First Name',
+			fieldname:'first_name',
+			fieldtype:'Data',
+		},
+		{
+			label:'Last Name',
+			fieldname:'last_name',
+			fieldtype:'Data',
+		},
+		{
+			label:'Age',
+			fieldname:'age',
+			fieldtype:'Data',
+		}
+		],
+		primary_action_label:'submit',
+		primary_action(values){
+			frm.set_value{'first_name',values.first_name}
+			frm.set_value{'last_name',values.last_name}
+			frm.set_value{'age',values.age}
+			d.hide()
+		}
+		d.show()
+	})
+	
+	}
+}
+
+-------------------------
+frm.is_dirty() // return boolean and check that if the form is saved or not
+
+enable:function(frm){	
+	if(frm.is_dirty){
+	frappe.msgprint(__{"please save the document"})
+
+}
+}
+

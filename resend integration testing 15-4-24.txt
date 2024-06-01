@@ -1,0 +1,189 @@
+resend integration
+
+create 2 doctype 
+=====================================
+1. Resend Email Record
+======================================
+fieldtypes are : 
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-15 13:54:36.745474",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "subject",
+  "status",
+  "to_email",
+  "column_break_ki6m0",
+  "from_email",
+  "reply_to",
+  "resend_id",
+  "column_break_j9zsh",
+  "email_html",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Sent\nDelivered\nDelivery Delayed\nComplained\nBounced",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reply_to",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reply To",
+   "options": "Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Subject",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Resend Email Record",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_ki6m0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_j9zsh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "resend_id",
+   "fieldtype": "Data",
+   "label": "Resend ID",
+   "read_only": 1
+  },
+  {
+   "description": "Comma Separated list of Emails",
+   "fieldname": "to_email",
+   "fieldtype": "Small Text",
+   "label": "To"
+  },
+  {
+   "fieldname": "from_email",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "From",
+   "options": "Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "email_html",
+   "fieldtype": "HTML Editor",
+   "label": "Email body Source"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-04-15 16:13:38.290922",
+ "modified_by": "Administrator",
+ "module": "Resent Integration",
+ "name": "Resend Email Record",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "subject",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
+
+=======================================
+2.Resend Settings 
+======================================
+api key only  // get the api key from resend api 
+======================================
+
+**********************************
+
+script for terminal
+**************************************
+bench --site test.com console
+import resend
+from frappe.utils.password import get_decrypted_password
+api_key = get_decrypted_password("Resend Settings","Resend Settings", "api_key")
+
+resend.api_key = "re_A6HCYekS_7X8HwyABu1htYBeCxyQM8Ddp" //or for testing
+
+r = resend.Emails.send({
+  "from": "onboarding@resend.dev",
+  "to": "shoaibmohtashim973@gmail.com",
+  "subject": "Hello World",
+  "html": "<p>Congrats on sending your <strong>first email</strong>!</p>"
+})
+
+
+open the resent_email_record.py file and paste the code there 
+
+# Copyright (c) 2024, mohtashim and contributors
+# For license information, please see license.txt
+
+import frappe
+from frappe.model.document import Document
+from frappe.utils.password import get_decrypted_password
+import resend
+
+def get_resend_api_key():
+	return get_decrypted_password("Resend Settings","Resend Settings", "api_key")
+
+resend.api_key = get_resend_api_key()
+
+class ResendEmailRecord(Document):
+	@frappe.whitelist()
+	def send(self):
+		r = resend.Emails.send({
+  		"from": "onboarding@resend.dev",
+  		"to": "shoaibmohtashim973@gmail.com",
+  		"subject": "Hello World",
+  		"html": "<p>Congrats on sending your <strong>first email</strong>!</p>"
+		})
+		self.status = 'Sent'
+		self.response_id = r['id']
+		self.save()
+
+		# email = resend.Emails.send({
+		# 	'from':self.from_email,
+		# 	'to':self.to_email.strip().split(','),
+		# 	'subject':self.subject,
+		# 	'html':self.email_html
+
+		# })
+		
+	

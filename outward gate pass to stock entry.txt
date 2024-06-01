@@ -1,0 +1,25 @@
+========================================
+outward gate pass to stock entry
+=====================================
+
+doc = frappe.get_doc({
+    'doctype':'Stock Entry',
+    'Purpose': 'Material Transfer',
+    'posting_date': doc.create_date,
+    "stock_entry_type": "Material Transfer",
+    'items':[{
+        'item_code' : "100GSM Disperce Print-RED-245CM-C",
+        # 'item_code': doc.inventory_gate_pass.item,
+        'qty': 1,
+        # frappe.errprint(doc.inventory_gate_pass.qty)
+        "s_warehouse": "Stores - T",
+        'from_warehouse':"Stores - T",
+        'to_warehouse':"Work In Progress - T",
+        "t_warehouse": "Work In Progress - T",
+    }]
+    
+})
+
+doc.insert()
+stock_entry_voucher = doc.name
+frappe.msgprint("Stock Entry had been created "+ stock_entry_voucher)

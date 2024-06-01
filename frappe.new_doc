@@ -1,0 +1,12 @@
+frappe.new_doc(doctype)
+
+def validate(self):
+	self.new_document()
+	
+def new_document(self):
+	doc= frappe.new_doc("Parent Doc")
+	doc.new_document('Parent Doc')
+	doc.first_name="Mohtashim"
+	doc.last_name="Nitin"
+	doc.age=10
+	doc.save()

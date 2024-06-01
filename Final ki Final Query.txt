@@ -1,0 +1,8 @@
+===================== final ki final query
+SELECT 	date(e.time) "Date:Date:100",
+		e.employee as "Employee ID:200",
+        e.employee_name "Employee Name:250",
+        (case when e.log_type = 'IN' then TIME(e.time) end) as "Check In:200",
+        (case when e.log_type = 'OUT' then TIME(e.time) end) as "Check Out:200"
+FROM 	`tabEmployee Checkin` e 
+order by 1

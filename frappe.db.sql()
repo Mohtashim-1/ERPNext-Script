@@ -1,0 +1,22 @@
+frappe.db.sql(""" """)
+database queries for this we can perform crud options
+===========================
+
+frappe.db.sql(query, filter, as dict)
+
+def validate(self):
+	self.sql()
+
+def sql(self):
+	data = frappe.db.sql("""
+		SELECT 
+			first_name, 
+			last_name
+		FROM 
+			`tabParent Doc`	
+		WHERE 
+			enable = 1 
+	""", as dict=1)
+	
+frappe.msgprint(__("the first name is {0} and the last name is {1}").format(d.first_name, d.last_name))
+

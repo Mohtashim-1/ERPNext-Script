@@ -1,0 +1,32 @@
+Doctor Appointment Portal
+
+As a user:
+
+1. i want to view a list of clinic(with details like doctor, speciality, etc.) in the city where i can book the appointment
+2. select a particular clinic view its schedule and book appointment for a particular day and shift 
+3. want to know what is the current quene number and if the doctor is "in " and "out"
+
+
+As an attender:
+
+1. i should be able to boook an appointment for a patient.
+2. change the status for my clinic doctor in and out
+
+
+Dcotor / Master
+
+1. Doctor
+2. Clinic (Web View)
+3. appointment
+	1.linked to a particular clinic
+	2. date
+	3. shift
+	4. quene number
+	5. full name
+	6. phone number/ email
+	
+Queue:
+
+Queue for each day / shift
+new doctype: appointment queue
+	it will have a child table (linked to appointments)

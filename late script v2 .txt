@@ -1,0 +1,72 @@
+	frappe.ui.form.on('Salary Slip', {
+		employee: function(frm) {
+			frm.trigger('update_number_of_late_days');
+		},
+		start_date: function(frm) {
+			frm.trigger('update_number_of_late_days');
+		},
+		end_date: function(frm) {
+			frm.trigger('update_number_of_late_days');
+		},
+		update_number_of_late_days: function(frm) {
+			if (!frm.is_new() && !frm.is_dirty()) return;
+			if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+			frappe.db.get_list('Attendance', {
+				fields: ['name'],
+				filters: {
+					employee: frm.doc.employee,
+					late_entry: 1,
+					attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+				}
+			}).then(ret => {
+				let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+				if (count === late_days) return;
+				frm.set_value('number_of_late_days', count);
+				if (!frm.is_new()) {
+					frm.dirty();
+					frm.save();
+				}
+			});
+		}
+	});
+	frappe.ui.form.on('Salary Slip', {
+		refresh: function(frm) {
+			if (cint(frm.doc.number_of_late_days) === 0) frm.trigger('sync_number_of_late_days');
+			frm.toggle_display('get_number_of_late_days', !frm.is_new());
+		},
+		employee: function(frm) {
+			frm.trigger('update_number_of_late_days');
+		},
+		start_date: function(frm) {
+			frm.trigger('update_number_of_late_days');
+		},
+		end_date: function(frm) {
+			frm.trigger('update_number_of_late_days');
+		},
+		get_number_of_late_days: function(frm) {
+			frm.trigger('sync_number_of_late_days');
+		},
+		// update_number_of_late_days: function(frm) {
+		//     if (!frm.is_new() && !frm.is_dirty()) return;
+		//     frm.trigger('sync_number_of_late_days');
+		// },
+		sync_number_of_late_days: function(frm) {
+			if (!frm.doc.employee || !frm.doc.start_date || !frm.doc.end_date) return;
+			frappe.db.get_list('Attendance', {
+				fields: ['name'],
+				filters: {
+					employee: frm.doc.employee,
+					late_entry: 1,
+					attendance_date: ['between', [frm.doc.start_date, frm.doc.end_date]]
+				}
+			}).then(ret => {
+				let count = ret.length, late_days = cint(frm.doc.number_of_late_days);
+				if (count === late_days) return;
+				frm.set_value('number_of_late_days', count);
+				if (!frm.is_new()) {
+					frm.dirty();
+					frm.save();
+				}
+			});
+		}
+	});

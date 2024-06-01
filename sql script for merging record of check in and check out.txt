@@ -1,0 +1,200 @@
+SELECT in_record.employee, in_record.employee_name,
+in_record.time AS check_in_time,
+out_record.time AS check_out_time 
+FROM `tabEmployee Checkin` AS in_record
+JOIN `tabEmployee Checkin` 
+AS out_record ON in_record.employee = out_record.employee
+AND in_record.log_type = 'IN'
+AND out_record.log_type = 'OUT'
+AND DATE(in_record.time) = DATE(out_record.time)
+
+
+====================================================
+
+SELECT 
+    in_record.employee, 
+    in_record.employee_name, 
+    in_record.time AS check_in_time, 
+    out_record.time AS check_out_time
+FROM 
+    `tabEmployee Checkin` AS in_record
+JOIN 
+    `tabEmployee Checkin` AS out_record
+ON 
+    in_record.employee = out_record.employee
+    AND in_record.log_type = 'IN'
+    AND out_record.log_type = 'OUT'
+    AND DATE(in_record.time) = DATE(out_record.time)
+	
+=========================================================
+SELECT DATE(in_record.time) AS check_in_date,
+       in_record.employee, in_record.employee_name,
+       in_record.time AS check_in_time,
+       out_record.time AS check_out_time,
+        in_record.device_id as device_id,
+         in_record.creation as creation,
+         in_record.owner as owner
+FROM `tabEmployee Checkin` AS in_record
+JOIN `tabEmployee Checkin` AS out_record ON in_record.employee = out_record.employee
+AND in_record.log_type = 'IN'
+AND out_record.log_type = 'OUT'
+AND DATE(in_record.time) = DATE(out_record.time)
+
+====================================================
+SELECT DATE(in_record.time) AS check_in_date,
+       in_record.employee, in_record.employee_name,
+       in_record.time AS check_in_time,
+       out_record.time AS check_out_time,
+    
+FROM `tabEmployee Checkin` AS in_record
+JOIN `tabEmployee Checkin` AS out_record ON in_record.employee = out_record.employee
+AND in_record.log_type = 'IN'
+AND out_record.log_type = 'OUT'
+AND DATE(in_record.time) = DATE(out_record.time)
+
+
+
+=========================
+SELECT 
+time
+
+DATE_FORMAT(in_record.time, "%d-%m-%Y") As "Date1",
+DATE_FORMAT(in_record.time, '%d-%m-%y') AS "Date",
+       in_record.employee AS "Employee ID",
+       in_record.employee_name AS "Employee Name",
+       in_record.time AS "Check In",
+       out_record.time AS "Check Out"
+FROM `tabEmployee Checkin` AS in_record
+JOIN `tabEmployee Checkin` AS out_record ON in_record.employee = out_record.employee
+AND in_record.log_type = 'IN'
+AND out_record.log_type = 'OUT'
+AND DATE(in_record.time) = DATE(out_record.time)
+
+================================
+SELECT 
+in_record.employee as Employee, in_record.employee_name as Employee Namen, in_record.log_type, in_record.time as check_in_time ,
+out_record.time as check_out_time
+FROM `tabEmployee Checkin` as in_record
+JOIN `tabEmployee Checkin` as out_record 
+on in_record.employee= out_record.employee
+and in_record.log_type ='in'
+and out_record.log_type = 'out'
+and date (in_record.time) = DATE(out_record.time)
+LIMIT 100
+
+================
+select  
+time as "Date",
+        date(time) as "Format Date:Date:200"
+from    `tabEmployee Checkin`
+where   employee = 101;
+
+===================================
+
+SELECT 
+       date(in_record.time) AS "Date:Date:200",
+       in_record.employee AS "Employee ID",
+       in_record.employee_name AS "Employee Name",
+       in_record.time AS "Check In",
+       out_record.time AS "Check Out"
+FROM `tabEmployee Checkin` AS in_record
+JOIN `tabEmployee Checkin` AS out_record ON in_record.employee = out_record.employee
+AND in_record.log_type = 'IN'
+AND out_record.log_type = 'OUT'
+AND DATE(in_record.time) = DATE(out_record.time)
+
+
+==================================================
+propstar attendenc check in employee merge log report 
+===============================================
+
+SELECT 
+       date(in_record.time) AS "Date:Date:200",
+       in_record.employee AS "Employee ID:Link/Employee:200",
+       in_record.employee_name AS "Employee Name:Data:300",
+       time(in_record.time) AS "Check In:Time:200",
+       time(out_record.time) AS "Check Out:Time:200"
+FROM `tabEmployee Checkin` AS in_record
+JOIN `tabEmployee Checkin` AS out_record ON in_record.employee = out_record.employee
+AND in_record.log_type = 'IN'
+AND out_record.log_type = 'OUT'
+AND DATE(in_record.time) = DATE(out_record.time)
+====================================================
+SELECT 
+    date(in_record.time) AS "Date:Date:200",
+    in_record.employee AS "Employee ID:Link/Employee:200",
+    in_record.employee_name AS "Employee Name:Data:300",
+    time(in_record.time) AS "Check In:Time:200",
+    time(out_record.time) AS "Check Out:Time:200"
+FROM `tabEmployee Checkin AS in_record`
+LEFT JOIN `tabEmployee Checkin` AS out_record 
+    ON in_record.employee = out_record.employee
+    AND DATE(in_record.time) = DATE(out_record.time)
+    AND out_record.log_type = 'OUT'
+WHERE in_record.log_type = 'IN'
+ORDER BY in_record.employee, date(in_record.time);
+=======================================================
+SELECT 
+    date(in_record.time) AS "Date:Date:200",
+    in_record.employee AS "Employee ID:Link/Employee:200",
+    in_record.employee_name AS "Employee Name:Data:300",
+    time(in_record.time) AS "Check In:Time:200",
+    time(out_record.time) AS "Check Out:Time:200"
+FROM `tabEmployee Checkin` AS in_record
+LEFT JOIN `tabEmployee Checkin` AS out_record 
+    ON in_record.employee = out_record.employee
+    AND DATE(in_record.time) = DATE(out_record.time)
+    AND out_record.log_type = 'OUT'
+WHERE in_record.log_type = 'IN'
+ORDER BY in_record.employee, date(in_record.time);
+
+======================================================
+SELECT 
+
+  date(COALESCE(in_record.time, out_record.time)) AS "Date:Date:200",
+
+  in_record.employee AS "Employee ID:Link/Employee:200",
+
+  in_record.employee_name AS "Employee Name:Data:300",
+
+  time(in_record.time) AS "Check In:Time:200",
+
+  time(out_record.time) AS "Check Out:Time:200"
+
+FROM `tabEmployee Checkin` AS in_record
+
+LEFT JOIN `tabEmployee Checkin` AS out_record 
+
+  ON in_record.employee = out_record.employee
+
+  AND DATE(in_record.time) = DATE(out_record.time)
+
+  AND out_record.log_type = 'OUT'
+
+LEFT JOIN `tabEmployee Checkin` AS in_record_checkin
+
+  ON in_record.employee = in_record_checkin.employee
+
+  AND DATE(in_record.time) = DATE(in_record_checkin.time)
+
+  AND in_record_checkin.log_type = 'IN'
+
+WHERE in_record.log_type = 'IN'
+
+  OR out_record.log_type = 'OUT'
+
+ORDER BY in_record.employee, date(COALESCE(in_record.time, out_record.time));
+
+
+=========================================
+select date(i.TIME),i.employee,i.employee_name,i.log_type, time(i.time),  o.log_type,time(o.TIME)
+from 
+(
+select  time(time) as "Time",date(time),employee,employee_name,log_type from `tabEmployee Checkin` where log_type = "IN"
+) i ,
+(
+select  time(time) as "Time",date(time),employee,employee_name,log_type from `tabEmployee Checkin` where log_type = "OUT"
+) o 
+where i.employee = o.employee 
+GROUP BY date(i.time) LIMIT 100
+

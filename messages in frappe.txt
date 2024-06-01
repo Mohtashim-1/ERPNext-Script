@@ -1,0 +1,24 @@
+// messages in frappe
+================================
+after_save:function(frm){
+	frappe.msgprint(__{"The age is {0}",frm.doc.age})
+}
+
+--------------------------------------
+after_save:function(frm){
+	frappe.msgprint({
+	title:__("Notification"),
+	indicator: 'red',
+	message : _('hello world'),
+	})
+}
+
+-------------------------------------
+set intro
+=====================================
+refresh:function(frm){
+	if(frm.is_new(){ //only run if the form is new
+	frappe.set_intro('Now, you can create a new parent doctype');
+	})
+	
+}

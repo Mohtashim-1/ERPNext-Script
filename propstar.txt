@@ -1,0 +1,12 @@
+144.126.135.102:63094
+root
+6uEvGa9W
+
+live ip 94.72.114.47:33556/
+
+
+dbeaver password connect
+server host : 94.72.114.47
+port : 3306
+username  :azs
+password : Pakistan

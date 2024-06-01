@@ -1,0 +1,5 @@
+~/frappe-bench
+$ tree sites/assets -L 1
+sites/assets
+├── erpnext -> ~/frappe-bench/apps/erpnext/erpnext/public
+└── frappe -> ~/frappe-bench/apps/frappe/frappe/public             

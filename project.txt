@@ -1,0 +1,330 @@
+if (len(attendance.get("attendances")) == 0) or any(att.get("status") == "Absent" for att in attendance.get("attendances")):
+    0
+elif department == "Accounts":
+    1000
+else:
+    base_salary / 30
+
+
+Pakistan
+192.168.0.1
+frappe
+
+frappe
+flutter
+database
+salesforce
+chatbot
+oracle apex
+
+
+Zaid,Abdul Rehman, John is not included in master sheet
+Waqas, Arsalan ID's are not mentioned
+
+email: rabia@saylaniwelfare.com
+password: Rabia@123
+
+
+mirzapur
+gangs of waseypur
+
+http://139.190.235.88:8000/
+172.16.0.141:22
+
+
+http://139.190.235.88:9000/
+172.16.0.142
+frappe
+Pakistan
+
+http://139.190.235.88:9999/
+172.16.2.24:33556
+
+http://139.190.235.88:9090/
+172.16.2.24:33556
+
+
+			salary_slip_id
+			employee
+			employee_name
+			data_of_joining
+			branch
+			department
+			designation
+			custom_employee_number
+			company
+			start_date
+			end_date
+			leave_without_pay
+			payment_days
+			currency
+			total_loan_repayment
+
+
+bench use sitename
+bench backup
+
+
+employee master sept
+employee master oct sheet 
+
+
+anydesk password and az user pw is Saylani
+anydesk Saylani123
+
+(base / 30) if payment_days >=30 and custom_leave == 0 and custom_number_of_late_days == 0 else 0
+
+
+(((base / 30) if payment_days >=30 and custom_leave == 0 and custom_number_of_late_days == 0 else 0) 
+((1000*1) if department = "Sampling - LTX1" and payment_days >=30 and custom_leave == 0 and custom_number_of_late_days == 0 else 0))
+
+
+
+cd frappe-bench
+bench mariadb
+desc `tabDemo Doctype`;
+===========================================
+for getting data from mariadb doctype
+select * from `tabDemo`
+
+
+
+shift type.start_time
+shift type.end_time
+
+
+employee_checkin.shift_start
+
+
+
+DENTAL FLOSS
+Dental Paper Point F2 (Paper Point F2)
+Dental K File 20 (21mm)(K File 20  21mm )
+Dental K File 20 (21mm) (K File 20  21mm )
+
+
+import barcode
+from barcode.writer import ImageWriter
+barcode = barcode.codex.Code128(sr_no, writer=ImageWriter())
+product_img = barcode.render()
+
+draw = ImageDraw.Draw(product_img)
+draw.text((width_to_start, height_to_start), text, (0, 0, 0), font=font)
+
+product_img.save("name.png", "PNG")
+
+import pdfkit
+# Option is page resolution
+options = {
+        'page-size': 'A4',
+        'margin-top': '0in',
+        'margin-right': '0in',
+        'margin-bottom': '0in',
+        'margin-left': '0in',
+    }
+pdfkit.from_file('html_script.html','file_name.pdf', options=options)
+    
+from PyPDF2 import PdfFileReader, PdfFileWriter
+pdf_writer = PdfFileWriter()
+for pdf in pdfs:
+    pdf_reader = PdfFileReader(pdf)
+    pdf_writer.addPage(pdf_reader.getPage(0))
+
+with open(output.pdf, 'wb') as out:
+        pdf_writer.write(out)
+        
+location = "/home/frappe/frappe-bench/sites/site_name/public/files/file_name.pdf"
+
+doc.barcode_pdf = f"/files/file_name.pdf"
+doc.save()
+frappe.db.commit()
+
+
+
+// custom_script.js
+
+frappe.ui.form.on('Timesheet', {
+    refresh: function(frm) {
+        // Fetch check-in and check-out times when the Timesheet is opened
+        frm.trigger('fetch_checkin_checkout_times');
+    },
+
+    fetch_checkin_checkout_times: function(frm) {
+        // Fetch check-in and check-out times when the 'Fetch Times' button is clicked
+        frm.add_custom_button(__('Fetch Times'), function() {
+            frappe.call({
+                method: 'custom_module.get_employee_times',
+                args: {
+                    employee: frm.doc.employee,
+                    start_date: frm.doc.from_date,
+                    end_date: frm.doc.to_date
+                },
+                callback: function(r) {
+                    if (r.message) {
+                        // Assuming you have 'from_time' and 'to_time' fields in Timesheet
+                        frm.set_value('from_time', r.message[0].checkin_time);
+                        frm.set_value('to_time', r.message[0].checkout_time);
+                        frappe.msgprint(__('Check-in and check-out times fetched successfully.'));
+                    } else {
+                        frappe.msgprint(__('No attendance records found for the selected employee and date range.'));
+                    }
+                }
+            });
+        });
+    }
+});
+
+
+# Script to fetch custom_leave_count from Attendance and set it in Salary Slip
+
+def validate(doc, method):
+    # Fetch custom_leave_count from Attendance
+    custom_leave_count = frappe.db.get_value("Attendance", {"employee": doc.employee, "attendance_date": doc.start_date}, "custom_leave_count")
+
+    # Set custom_leave_count in Salary Slip
+    doc.custom_leave_count = custom_leave_count
+
+<!--<h1>Sales Invoice</h1>-->
+<div style="display:flex;  justify-content: space-between;">
+    <h2>Sales Invoice</h2>
+    <h2>{{doc.status}}</h2>
+</div>
+
+<table style="line-height: 0; font-size: 12px;">
+   <tr>
+       <td colspan="4">Customer Name:</td>
+       <td colspan="4">Invoice Number :</td>
+   </tr>
+   <tr>
+       <td colspan="4"><b>{{ doc.customer_name }}</b></td>
+       <td colspan="4"><b>{{ doc.name }}</b></td>
+   </tr>
+    
+   <tr>
+       <td colspan="4">Customer NTN :</td>
+       <td colspan="4">Posting Date:</td>
+   </tr>
+   <tr>
+       <td colspan="4">
+           <b>{{ doc.tax_id }}</b>
+       </td>
+       <td colspan="4"><b>{{ doc.posting_date}}</b></td>
+   </tr>
+   
+   <tr>
+       <td colspan="4">Customer Address:</td>
+       <td colspan="4">Payment Due Date:</td>
+   </tr>
+   <tr>
+       <td colspan="4"><b>{{ doc.customer_address }}</b></td>
+       <td colspan="4"><b>{{ doc.due_date }}</b></td>
+   </tr>
+   
+   <tr>
+       <td colspan="4">PO Number</td>
+       <td colspan="4">PO Date:</td>
+   </tr>
+   <tr>
+       <td colspan="4"><b>{{ doc.po_no }}</b></td>
+       <td colspan="4"><b>{{ doc.po_date }}</b></td>
+   </tr>
+</table>
+<b>Items</b>
+<table style="border-collapse: collapse; width: 100%; border: 1px solid black;">
+    <thead style="background-color: #F5F5F5;">
+        <tr>
+            <th style="border: 1px solid grey; font-weight: bold;color: black;">Item Name</th>
+            <th style="border: 1px solid grey; font-weight: bold;color: black;">Quantity</th>
+            <th style="border: 1px solid grey; font-weight: bold;color: black;">Rate</th>
+            <th style="border: 1px solid grey; font-weight: bold;color: black;">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in doc.items %}
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid grey;">{{ item.item_name }}</td>
+                <td style="border: 1px solid grey;">{{ item.qty }}</td>
+                <td style="border: 1px solid grey;">{{ item.rate }}</td>
+                <td style="border: 1px solid grey;">{{ item.amount }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<b>Taxes</b>
+<table style="border-collapse: collapse; width: 100%; border: 1px solid black;">
+    <thead style="background-color: #F5F5F5;">
+        <tr>
+            <th style="border: 1px solid grey; font-weight: bold;color: black;">Account</th>
+            <th style="border: 1px solid grey; font-weight: bold; color: black;">Rate (%)</th>
+            <th style="border: 1px solid grey; font-weight: bold; color: black;">Tax Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set total_tax_amount = 0 %}
+        {% for tax in doc.taxes %}
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid grey;">{{ tax.account_head }}</td>
+                <td style="border: 1px solid grey;">{{ tax.rate }}</td>
+                <td style="border: 1px solid grey;">{{ tax.tax_amount }}</td>
+                {% set total_tax_amount = total_tax_amount + tax.tax_amount %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<table>
+    <tr>
+        <td style="width: 60%">{{ doc.terms }}</td>
+        <td style="width: 20%">Total:<br><br>Discount:<br><br>Grand Total:<br><br> </td>
+        <td style="width: 20%"><b>{{ doc.total }}<br><br> {{ doc.discount_amount }}<br><br>{{ doc.grand_total }}<br></b></td>
+    </tr>
+</table>
+
+<div>
+
+</div>
+
+
+
+<b>Taxes</b>
+<table style="border-collapse: collapse; width: 100%; border: 1px solid black;">
+    <thead style="background-color: #F5F5F5;">
+        <tr>
+            <th style="border: 1px solid grey; font-weight: bold;color: black;">Account</th>
+            <th style="border: 1px solid grey; font-weight: bold; color: black;">Rate (%)</th>
+            <th style="border: 1px solid grey; font-weight: bold; color: black;">Tax Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set total_tax_amount = 0 %}
+        {% for tax in doc.taxes %}
+            <tr style="border: 1px solid black;">
+                <td style="border: 1px solid grey;">{{ tax.account_head }}</td>
+                <td style="border: 1px solid grey;">{{ tax.rate }}</td>
+                <td style="border: 1px solid grey;">{{ tax.tax_amount }}</td>
+                {% set total_tax_amount = total_tax_amount + tax.tax_amount %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+  {% set total_tax_amount = 0 %}
+        {% for tax in doc.taxes %}
+            <tr>
+                <td >{{ tax.account_head }}</td>
+                <td >{{ tax.rate }}</td>
+                <td >{{ tax.tax_amount }}</td>
+                {% set total_tax_amount = total_tax_amount + tax.tax_amount %}
+            </tr>
+        {% endfor %}
+		
+		
+  {% set total_tax_amount = 0 %}
+        {% for tax in doc.taxes %}
+            {{ tax.account_head }}
+            {{ tax.rate }}
+            {{ tax.tax_amount }}
+            {% set total_tax_amount = total_tax_amount + tax.tax_amount %}
+        {% endfor %}

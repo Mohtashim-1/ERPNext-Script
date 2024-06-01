@@ -1,0 +1,271 @@
+frappe.ui.form.on('Attendance', {
+    onload: function(frm) {
+        calculateWorkedHours(frm);
+    }
+});
+
+frappe.ui.form.on('Attendance', {
+    refresh: function(frm) {
+        frm.add_fetch('custom_worked_hours', 'custom_worked_hours', 'custom_worked_hours');
+    },
+    on_submit: function(frm) {
+        frm.add_fetch('custom_worked_hours', 'custom_worked_hours', 'custom_worked_hours');
+    }
+});
+
+function calculateWorkedHours(frm) {
+    const inDateTime = frm.doc.in_time ? frappe.datetime.get_datetime(frm.doc.in_time) : null;
+    const outDateTime = frm.doc.out_time ? frappe.datetime.get_datetime(frm.doc.out_time) : null;
+
+    if (inDateTime && outDateTime) {
+        const timeDifference = frappe.datetime.get_diff(outDateTime, inDateTime);
+
+        const hours = Math.floor(timeDifference / 60);
+        const minutes = timeDifference % 60;
+
+        frm.set_value('custom_worked_hours', hours + ':' + (minutes < 10 ? '0' : '') + minutes);
+    } else {
+        frm.set_value('custom_worked_hours', null);
+    }
+}
+
+frappe.ui.form.on('Attendance', {
+    onload: function(frm) {
+        calculateWorkedHours(frm);
+    }
+});
+
+frappe.ui.form.on('Attendance', {
+    refresh: function(frm) {
+        frm.add_fetch('custom_worked_hours', 'custom_worked_hours', 'custom_worked_hours');
+    },
+    on_submit: function(frm) {
+        frm.add_fetch('custom_worked_hours', 'custom_worked_hours', 'custom_worked_hours');
+    }
+});
+
+function calculateWorkedHours(frm) {
+    const inDateTime = frm.doc.in_time ? frappe.datetime.get_datetime(frm.doc.in_time) : null;
+    const outDateTime = frm.doc.out_time ? frappe.datetime.get_datetime(frm.doc.out_time) : null;
+
+    if (inDateTime && outDateTime) {
+        const timeDifference = frappe.datetime.get_diff(outDateTime, inDateTime);
+
+        const hours = Math.floor(timeDifference / 60);
+        const minutes = timeDifference % 60;
+
+        frm.set_value('custom_worked_hours', hours + ':' + (minutes < 10 ? '0' : '') + minutes);
+    } else {
+        frm.set_value('custom_worked_hours', null);
+    }
+}
+
+frappe.ui.form.on('Attendance', {
+	refresh(frm) {
+	   	frappe.db.get
+	}
+})
+
+
+frappe.ui.form.on('Attendance', {
+    onload: function(frm) {
+        frm.trigger('split_and_store_custom_shift');
+        frappe.msgprint('0')
+    },
+    split_and_store_custom_shift: function(frm) {
+        if (frm.doc.custom_shift_) {
+            frappe.msgprint('1.1')
+            var shift_parts = frm.doc.custom_shift_.split(' ');
+            if (shift_parts) {
+                frappe.msgprint('1')
+                frappe.model.set_value(frm.doctype, frm.docname, 'custom_shift_in', shift_parts[0]);
+                frappe.model.set_value(frm.doctype, frm.docname, 'custom_shift_out', shift_parts[2]);
+                frm.refresh_fields(['custom_shift_in', 'custom_shift_out']);
+            }
+        }
+    }
+});
+
+frappe.ui.form.on('Attendance', {
+    refresh: function(frm) {
+        frm.trigger('calculate_shift_duration');
+    },
+    calculate_shift_duration: function(frm) {
+        if (frm.doc.custom_shift_in && frm.doc.custom_shift_out) {
+            var shiftIn = moment(frm.doc.custom_shift_in, 'HH:mm');
+            var shiftOut = moment(frm.doc.custom_shift_out, 'HH:mm');
+
+            if (shiftOut.isBefore(shiftIn)) {
+                frappe.msgprint(__("Shift Out time should be after Shift In time"));
+                return;
+            }
+
+            var duration = moment.duration(shiftOut.diff(shiftIn));
+            var hours = duration.hours();
+            var minutes = duration.minutes();
+
+            var shiftDuration = hours + ':' + ('0' + minutes).slice(-2);
+
+            frappe.model.set_value(frm.doctype, frm.docname, 'custom_shift_duration', shiftDuration);
+            frm.refresh_field('custom_shift_duration');
+        }
+    }
+});
+
+// Show calculated shift duration after saving
+frappe.ui.form.on('Attendance', {
+    after_save: function(frm) {
+        frm.trigger('calculate_shift_duration');
+    }
+});
+
+frappe.ui.form.on('Attendance', {
+    onload: function(frm) {
+        frm.trigger('calculate_shift_duration');
+    },
+    calculate_shift_duration: function(frm) {
+        if (frm.doc.custom_shift_in && frm.doc.custom_shift_out) {
+            var shiftIn = moment(frm.doc.custom_shift_in, 'HH:mm');
+            var shiftOut = moment(frm.doc.custom_shift_out, 'HH:mm');
+
+            if (shiftOut.isBefore(shiftIn)) {
+                frappe.msgprint(__("Shift Out time should be after Shift In time"));
+                return;
+            }
+
+            var duration = moment.duration(shiftOut.diff(shiftIn));
+            var hours = duration.hours();
+            var minutes = duration.minutes();
+
+            var shiftDuration = hours + ':' + ('0' + minutes).slice(-2);
+
+            frappe.model.set_value(frm.doctype, frm.docname, 'custom_shift_duration', shiftDuration);
+            frm.refresh_field('custom_shift_duration');
+
+            // Calculate overtime
+            calculate_overtime(frm);
+        }
+    },
+    custom_worked_hours: function(frm) {
+        // Calculate overtime whenever custom_worked_hours changes
+        calculate_overtime(frm);
+    }
+});
+
+function calculate_overtime(frm) {
+    if (frm.doc.custom_worked_hours && frm.doc.custom_shift_duration) {
+        var workedHours = moment.duration(frm.doc.custom_worked_hours);
+        var shiftDuration = moment.duration(frm.doc.custom_shift_duration);
+
+        // Calculate overtime duration
+        var overtimeDuration = workedHours.subtract(shiftDuration);
+
+        // Format the duration as HH:mm
+        var overtimeHours = Math.floor(overtimeDuration.asHours());
+        var overtimeMinutes = Math.floor((overtimeDuration.asMinutes() % 60));
+        var overtime = overtimeHours + ':' + ('0' + overtimeMinutes).slice(-2);
+
+        // Set the value in the custom_overtime field
+        frappe.model.set_value(frm.doctype, frm.docname, 'custom_over_time_', overtime);
+        frm.refresh_field('custom_over_time_');
+    }
+}
+
+
+frappe.ui.form.on('Attendance', {
+    onload: function(frm) {
+        console.log('onload start');
+        calculateWorkedHours(frm);
+        frm.trigger('split_and_store_custom_shift');
+        frm.trigger('calculate_shift_duration');
+        console.log('onload end');
+    },
+    refresh: function(frm) {
+        console.log('refresh start');
+        frm.add_fetch('custom_worked_hours', 'custom_worked_hours', 'custom_worked_hours');
+        console.log('refresh end');
+    },
+    before_submit: function(frm) {
+        console.log('before_submit start');
+        // Perform any calculations or validations before submitting
+        calculate_overtime(frm);
+        console.log('before_submit end');
+    },
+    calculate_shift_duration: function(frm) {
+        console.log('calculate_shift_duration start');
+        if (frm.doc.custom_shift_in && frm.doc.custom_shift_out) {
+            var shiftIn = moment(frm.doc.custom_shift_in, 'HH:mm');
+            var shiftOut = moment(frm.doc.custom_shift_out, 'HH:mm');
+
+            if (shiftOut.isBefore(shiftIn)) {
+                frappe.msgprint(__("Shift Out time should be after Shift In time"));
+                console.log('calculate_shift_duration error');
+                return;
+            }
+
+            var duration = moment.duration(shiftOut.diff(shiftIn));
+            var hours = duration.hours();
+            var minutes = duration.minutes();
+
+            var shiftDuration = hours + ':' + ('0' + minutes).slice(-2);
+
+            frappe.model.set_value(frm.doctype, frm.docname, 'custom_shift_duration', shiftDuration);
+            frm.refresh_field('custom_shift_duration');
+        }
+        console.log('calculate_shift_duration end');
+    },
+    custom_worked_hours: function(frm) {
+        console.log('custom_worked_hours start');
+        calculateWorkedHours(frm);
+        calculate_overtime(frm);
+        console.log('custom_worked_hours end');
+    },
+    split_and_store_custom_shift: function(frm) {
+        console.log('split_and_store_custom_shift start');
+        if (frm.doc.custom_shift_) {
+            var shift_parts = frm.doc.custom_shift_.split(' ');
+            if (shift_parts && shift_parts.length === 3) {
+                frappe.model.set_value(frm.doctype, frm.docname, 'custom_shift_in', shift_parts[0]);
+                frappe.model.set_value(frm.doctype, frm.docname, 'custom_shift_out', shift_parts[2]);
+                frm.refresh_fields(['custom_shift_in', 'custom_shift_out']);
+            }
+        }
+        console.log('split_and_store_custom_shift end');
+    }
+});
+
+function calculate_overtime(frm) {
+    console.log('calculate_overtime start');
+    if (frm.doc.custom_worked_hours && frm.doc.custom_shift_duration) {
+        var workedHours = moment.duration(frm.doc.custom_worked_hours);
+        var shiftDuration = moment.duration(frm.doc.custom_shift_duration);
+
+        var overtimeDuration = workedHours.subtract(shiftDuration);
+
+        var overtimeHours = Math.floor(overtimeDuration.asHours());
+        var overtimeMinutes = Math.floor((overtimeDuration.asMinutes() % 60));
+        var overtime = overtimeHours + ':' + ('0' + overtimeMinutes).slice(-2);
+
+        frappe.model.set_value(frm.doctype, frm.docname, 'custom_over_time_hours', overtime);
+        frm.refresh_field('custom_over_time_hours');
+    }
+    console.log('calculate_overtime end');
+}
+
+function calculateWorkedHours(frm) {
+    console.log('calculateWorkedHours start');
+    var inDateTime = frm.doc.in_time ? frappe.datetime.get_datetime(frm.doc.in_time) : null;
+    var outDateTime = frm.doc.out_time ? frappe.datetime.get_datetime(frm.doc.out_time) : null;
+
+    if (inDateTime && outDateTime) {
+        var timeDifference = frappe.datetime.get_diff(outDateTime, inDateTime);
+
+        var hours = Math.floor(timeDifference / 60);
+        var minutes = timeDifference % 60;
+
+        frm.set_value('custom_worked_hours', hours + ':' + (minutes < 10 ? '0' : '') + minutes);
+    } else {
+        frm.set_value('custom_worked_hours', null);
+    }
+    console.log('calculateWorkedHours end');
+}

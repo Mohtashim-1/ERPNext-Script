@@ -1,0 +1,66 @@
+<img src="public/img.jpg">
+<h2>Saylani Welfare International Trust<br>Address: A-25 Main Bahadurabad Karachi<br>Cell: 021-111-729-526</h2>
+<div style="border: 1px solid black; border-radius:5px;width: 100%; font-size: 20px; text-align: center; color: white; background-color: black;">Laboratory Slip</div>
+<table style="border-collapse: collapse;">
+    <tr>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">Patient Name:</td>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{doc.patient_name}}</td>
+    </tr>
+    <tr>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">Age:</td>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{doc.age}}</td>
+    </tr>
+    <tr>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">Date Of Birth:</td>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{doc.date_of_birth}}</td>
+    </tr>
+    <tr>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">Contact:</td>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{doc.contact}}</td>
+    </tr>
+    <tr>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">UID:</td>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{doc.uid}}</td>
+    </tr>
+    <tr>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">Laboratory:</td>
+        <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{doc.laboratory}}</td>
+    </tr>
+</table>
+<br>
+{% for test in doc.lab %}
+<table style="border-collapse: collapse;">
+    <thead>
+        <tr>
+            <td style="width:200px; margin:100px; padding:0; line-height: 0; border: 1px solid black; font-weight: bold;">Test Name</td>
+            <td style="width:200px; margin:100px; padding:0; line-height: 0; border: 1px solid black; font-weight: bold;">Laboratory</td>
+            <td style="width:200px; margin:100px; padding:0; line-height: 0; border: 1px solid black; font-weight: bold;">Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="width:200px; margin:100px; padding:0; line-height: 0; border: 1px solid black;">{{ test.lab }}</td>
+            <td style="width:200px; margin:100px; padding:0; line-height: 0; border: 1px solid black;">{{ test.laboratory }}</td>
+            <td style="width:200px; margin:100px; padding:0; line-height: 0; border: 1px solid black;">{{ test.amount }}</td> 
+        </tr>
+    </tbody>
+</table>
+{% endfor %}
+
+<h3>Approved Amount {{doc.get_formatted("total_amount")}}</h3>
+<br>
+<table  style="border-collapse: collapse;">
+     <tr>
+        <td style="width:256px;margin:200px;line-height: 0;">{{doc.owner}}</td>
+        <!--<td style="width:400px;margin:365px;line-height: 0;">____________</td>-->
+    </tr>
+     <tr>
+        <td style="width:256px;margin:200px;line-height: 0;">____________</td>
+        <td style="width:400px;margin:365px;line-height: 0;">____________</td>
+    </tr>
+    <tr>
+        <td style="width:256px;margin:200px;line-height: 0;">Entered By:</td>
+        <td style="width:400px;margin:365px;line-height: 0;">Approved By:</td>
+    </tr>
+</table>
+

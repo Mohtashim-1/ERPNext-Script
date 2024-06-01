@@ -1,0 +1,47 @@
+	
+def get_number_of_late_days(employee, start_date, end_date):
+    # Query Attendance records to count late entries
+    late_entries = frappe.db.count('Attendance', filters={
+        'employee': employee,
+        'late_entry': 1,
+        'attendance_date': ['between', [start_date, end_date]]
+    })
+    return late_entries
+
+
+def create_salary_slips_for_employees(employees, args, publish_progress=True):
+    try:
+        salary_slips_exist_for = get_existing_salary_slips(employees, args)
+        count = 0
+
+        employees = list(set(employees) - set(salary_slips_exist_for))
+        
+        for emp in employees:
+            # Calculate number of late days for the employee
+            number_of_late_days = get_number_of_late_days(emp, args.start_date, args.end_date)
+            
+            # Create Salary Slip document
+            salary_slip = frappe.new_doc("Salary Slip")
+            salary_slip.employee = emp
+            salary_slip.number_of_late_days = number_of_late_days
+            # Set other fields as needed
+            # salary_slip.field_name = value
+            
+            salary_slip.insert()
+            
+            count += 1
+            if publish_progress:
+                frappe.publish_progress(
+                    count * 100 / len(employees),
+                    title=_("Creating Salary Slips..."),
+                )
+
+        frappe.msgprint(_("Salary Slips created successfully."), title=_("Message"))
+        
+    except Exception as e:
+        frappe.msgprint(_("Error creating Salary Slips: {0}").format(str(e)), title=_("Error"), indicator="red")
+        frappe.log_error(frappe.get_traceback(), _("Error creating Salary Slips"))
+        frappe.db.rollback()
+
+    finally:
+        frappe.db.commit()

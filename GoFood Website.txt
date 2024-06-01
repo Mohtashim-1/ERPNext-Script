@@ -1,0 +1,13 @@
+GoFood MongoDB Database 
+Your current IP address (101.53.249.33) has been added to enable local connectivity.
+
+UserName : shoaibmohtashim973
+Password : WlhEBVCBa4Myhnh5
+
+
+
+mongodb+srv://shoaibmohtashim973:WlhEBVCBa4Myhnh5@cluster0.hf7fikt.mongodb.net/
+
+
+mongodb+srv://shoaibmohtashim973:<password>@cluster0.hf7fikt.mongodb.net/
+

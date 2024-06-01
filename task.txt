@@ -1,0 +1,4 @@
+https://www.youtube.com/watch?v=0AabTb69_80
+
+batch par barcode add karna hai aur wo barcode pos par fetch hosakhe aese karna hai 8000 wali id par 
+gmail password check karna hai

@@ -1,0 +1,4 @@
+{{ frappe.utils.get_datetime(doc.date_field_name).strftime("%d-%m-%Y") }}
+
+{{ frappe.utils.get_datetime(doc.date_field_name).strftime(“%d-%b-%Y”) }}
+

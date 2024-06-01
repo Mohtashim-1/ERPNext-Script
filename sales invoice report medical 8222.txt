@@ -1,0 +1,105 @@
+# select company,posting_date,discount_amount,grand_total, from `tabSales Invoice` join `tabSales Invoice Item`; 
+
+
+
+=============================
+SELECT 
+    `tabSales Invoice`.`company` AS `Company`,
+    `tabSales Invoice`.`posting_date` AS `Date`,
+    `tabSales Invoice`.`grand_total` AS `Grand Total`,
+    `tabSales Invoice`.`discount_amount` AS `Discount Amount`,
+    `tabSales Invoice Item`.`Item_name` AS `Item Name`
+FROM 
+    `tabSales Invoice`
+JOIN 
+    `tabSales Invoice Item` ON `tabSales Invoice`.`name` = `tabSales Invoice Item`.`parent`
+ORDER BY company;
+
+==============================
+	
+SELECT 
+    `tabSales Invoice`.`company` AS `Company`,
+    `tabSales Invoice`.`posting_date` AS `Date`,
+    `tabItem`.`item_name` AS `Item Name`,
+    `tabItem`.`item_group` AS `Item Group`,
+    `tabSales Invoice Item`.`qty` AS `Quantity`,
+    `tabSales Invoice Item`.`amount` AS `Amount`,
+    SUM(`tabSales Invoice Item`.`qty`) AS `Total Quantity`,
+    SUM(`tabSales Invoice Item`.`amount`) AS `Total Amount`
+FROM 
+    `tabSales Invoice`
+JOIN 
+    `tabSales Invoice Item` ON `tabSales Invoice`.`name` = `tabSales Invoice Item`.`parent`
+JOIN 
+    `tabItem` ON `tabSales Invoice Item`.`item_code` = `tabItem`.`item_code`
+GROUP BY 
+    `tabSales Invoice`.`company`, 
+    `tabSales Invoice`.`posting_date`, 
+    `tabItem`.`item_name`, 
+    `tabItem`.`item_group`,
+    `tabSales Invoice Item`.`qty`,
+    `tabSales Invoice Item`.`amount`
+ORDER BY 
+    `Company`;
+
+================================
+SELECT 
+    `tabSales Invoice`.`company` AS `Company`,
+    `tabSales Invoice`.`posting_date` AS `Date`,
+    `tabItem`.`item_group` AS `Item Group`,
+    SUM(`tabSales Invoice Item`.`qty`) AS `Total Quantity`,
+    SUM(`tabSales Invoice Item`.`amount`) AS `Total Amount`
+FROM 
+    `tabSales Invoice`
+JOIN 
+    `tabSales Invoice Item` ON `tabSales Invoice`.`name` = `tabSales Invoice Item`.`parent`
+JOIN 
+    `tabItem` ON `tabSales Invoice Item`.`item_code` = `tabItem`.`item_code`
+WHERE
+    `tabSales Invoice`.`posting_date` = '2024-03-20'
+GROUP BY 
+    `tabSales Invoice`.`company`, 
+    `tabSales Invoice`.`posting_date`, 
+    `tabItem`.`item_group`
+ORDER BY 
+    `Company`, 
+    `Item Group`;
+
+=====================================
+SELECT 
+    `tabSales Invoice`.`company` AS `Company`,
+    `tabSales Invoice`.`posting_date` AS `Date`,
+    `tabItem`.`item_group` AS `Item Group`,
+    SUM(`tabSales Invoice Item`.`qty`) AS `Total Quantity`,
+    SUM(`tabSales Invoice Item`.`amount`) AS `Total Amount`
+FROM 
+    `tabSales Invoice`
+JOIN 
+    `tabSales Invoice Item` ON `tabSales Invoice`.`name` = `tabSales Invoice Item`.`parent`
+JOIN 
+    `tabItem` ON `tabSales Invoice Item`.`item_code` = `tabItem`.`item_code`
+WHERE
+    `tabSales Invoice`.`posting_date` = '2024-03-20'
+GROUP BY 
+    `tabSales Invoice`.`company`, 
+    `tabSales Invoice`.`posting_date`, 
+    `tabItem`.`item_group`
+ORDER BY 
+    `Company`, 
+    `Item Group`;
+======================================
+SELECT 
+    in_record.employee as Employe, 
+    in_record.employee_name as Employee_Name, 
+    in_record.time AS check_in_time, 
+    out_record.time AS check_out_time
+FROM 
+    `tabEmployee Checkin` AS in_record
+WHERE from_date LIKE %(from_date)s 
+JOIN 
+    `tabEmployee Checkin` AS out_record
+ON 
+    in_record.employee = out_record.employee
+    AND in_record.log_type = 'IN'
+    AND out_record.log_type = 'OUT'
+    AND DATE(in_record.time) = DATE(out_record.time)

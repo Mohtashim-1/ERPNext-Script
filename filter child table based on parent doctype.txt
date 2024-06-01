@@ -1,0 +1,43 @@
+frappe.ui.form.on("Lab Slip", "refresh", function(frm) {
+    frm.fields_dict['lab'].grid.get_field('lab').get_query = function(doc, cdt, cdn) {
+        var child = locals[cdt][cdn];
+        console.log(child);
+        return {    
+            filters:[
+                ['laboratory', '=', doc.laboratory]
+            ]
+        }
+    }
+});
+
+
+8222 medical erp filter lab code
+ 
+frappe.ui.form.on("Laboratory Slip", "refresh", function(frm) {
+    frm.fields_dict['lab_test'].grid.get_field('series').get_query = function(doc, cdt, cdn) {
+        console.log("frm")
+        var child = locals[cdt][cdn];
+        console.log(child);
+        return {    
+            filters:[
+                ['laboratory', '=', doc.laboratory]
+            ]
+        }
+    }
+});
+
+
+USAMA BHAI SCRIPT
+
+frappe.ui.form.on('Lab Slip', {
+    laboratory(frm) {
+        frm.fields_dict['lab'].grid.get_field('lab').get_query = function (doc, cdt, cdn)
+        {
+            return {
+                filter: [
+                    ['Laboratory Test Child', 'laboratory', '=', frm.doc.laboratory],
+                ]
+            };
+        };
+    }
+});

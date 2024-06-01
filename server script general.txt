@@ -1,0 +1,38 @@
+if "test" in doc.description:
+	doc.status = 'Closed'
+
+
+# validate
+if "validate" in doc.description:
+	raise frappe.ValidationError
+
+# auto create another document
+if doc.allocated_to:
+	frappe.get_doc(dict(
+		doctype = 'ToDo'
+		owner = doc.allocated_to,
+		description = doc.subject
+	)).insert()
+
+API Call
+Respond to /api/method/<method-name> calls, just like whitelisted methods
+
+
+# respond to API
+
+if frappe.form_dict.message == "ping":
+	frappe.response['message'] = "pong"
+else:
+	frappe.response['message'] = "ok"
+Permission Query
+Add conditions to the where clause of list queries.
+
+
+# generate dynamic conditions and set it in the conditions variable
+tenant_id = frappe.db.get_value(...)
+conditions = 'tenant_id = {}'.format(tenant_id)
+
+# resulting select query
+select name from `tabPerson`
+where tenant_id = 2
+order by creation desc

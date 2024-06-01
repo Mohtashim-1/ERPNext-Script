@@ -1,0 +1,20 @@
+Meetin Key Points:
+16-04.2024
+
+1. Employee ID/ RF ID should be List view of employee check in done
+2. Employee check in register request will be given by Mr. Ameer done 
+3. Change the shift system from strict to log type to first in and last out pending work would be done at local from live log of 2 employees
+4. 60 Employees attendance will be get after HR Team will enter shift assignment pending at mr. ameer end
+
+
+
+17-04-2024 Wednesday
+
+Asset Import status and question regarding price
+Notes of those assets which list are not added in the system till yet which groups include 
+Water cooler
+Reck
+Tables
+For those above assets, after BOM Practice, Mr. tahir advised to contact with Mr. Murtaza
+
+BOM of 1 item finished item should be send to Mr. Tahir for reviewing the system.

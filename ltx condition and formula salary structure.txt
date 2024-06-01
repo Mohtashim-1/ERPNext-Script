@@ -1,0 +1,110 @@
+attendence allowance
+(1000 * 1) if company == "LINKOTEX EXPORTS - LTX1" and department == "Sampling - LTX1" else (base / 30 ) if company == "LINKOTEX EXPORTS	 - LTX1" else 0
+(1000 * 1) if company == "LINKOTEX EXPORTS - LTX1" else 0
+if payment_days == 30 
+
+(1000 * 1) if company == "LINKOTEX EXPORTS - LTX1" and department == "Sampling - LTX1" else (base / 30 ) if company == "LINKOTEX WASHING - LTX2" else 0 if designation == "Security Guard"
+
+(1000 * 1) if company == "LINKOTEX EXPORTS - LTX1" and department == "Sampling - LTX1" else (base / 30 ) if company == "LINKOTEX WASHING - LTX2" else 0 
+
+
+(1000 * 1) if department == "Sampling - LTX1" custom_leave == 0 and custom_number_of_late_days == 0 else (base / 30 )
+if custom_leave == 0 and custom_number_of_late_days == 0
+custom_leave == 0 and custom_number_of_late_days == 0 and 
+
+payment_days >= 30 and custom_number_of_late_days == 0 and custom_leaves == 0
+custom_number_of_late_days == 0 and custom_leaves == 0
+
+attendance.custom_leave_count
+attendance.custom_leave_count
+payment_days >= 30 and custom_leave == 0 and custom_number_of_late_days == 0 
+custom_leave == 0 and custom_number_of_late_days == 0 and payment_days >=30
+
+
+overtime
+(110 * over_time_hours) if company == "LINKOTEX EXPORTS - LTX1" and department == "Sampling - LTX1" else (90 * over_time_hours  ) if company == "LINKOTEX EXPORTS	 - LTX1" else 0
+
+(base / 30) if custom_number_of_late_days == 0 and payment_days == 30 else( 0 )if custom_number_of_late_days > 0 
+
+over_time_approval_request.over_time_hours - fail
+Over_Time_Approval_Request.over_time_hours - fail
+Over Time Approval Request.over_time_hours - fail
+doc.over_time_hours -- fail
+
+
+
+
+(110*approved_hours) if company == LT1 and department == sampling else
+(90*approved_hours) else 0
+
+
+Saif@123
+
+3615
+7258
+
+attendence allowance formula
+
+(base / 30) if custom_number_of_late_days == 0 and payment_days == 30 else 0
+
+(base / 30) if custom_number_of_late_days == 0 and payment_days == 30  else 0
+
+
+30 == payment_days and custom_number_of_late_days ==0
+
+
+
+company DONE
+employee DONE
+department DONE
+shift TYPE DONE
+HOLIDAY LIST DONE 
+designation DONE
+SHIFT ASSISGMENT DONE
+attendence DONE
+attendence allowance DONE
+EMPLOYEE ADVANCE DONE
+ADDITIONAL SALARY DONE
+timesheet DONE
+LEAVE TYPE DONE
+leave APPLICATION DONE
+leave allocation DONE
+leave period DONE
+loan DONE
+advance DONE DONE
+additional salary DONE
+salary component DONE
+salary structure DONE
+TAX SLAB
+
+9090 nahi chal raha
+
+
+
+yahan lakkr ajao dekhte he
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(base / 30) if payment_days >=30 and custom_leave == 0 and custom_number_of_late_days == 0 
+
+
+
+
+
+
+(1000 * 1) if department == "Sampling - LTX1" and payment_days >=30 and custom_leave == 0 and custom_number_of_late_days == 0 (base / 30 )
+else if custom_leave == 0 and custom_number_of_late_days == 0

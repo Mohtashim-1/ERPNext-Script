@@ -1,0 +1,30 @@
+frappe.ui.form.on('Attendance', {
+    onload: function(frm) {
+        calculateWorkedHours(frm);
+    }
+});
+
+frappe.ui.form.on('Attendance', {
+    refresh: function(frm) {
+        frm.add_fetch('custom_worked_hours', 'custom_worked_hours', 'custom_worked_hours');
+    },
+    on_submit: function(frm) {
+        frm.add_fetch('custom_worked_hours', 'custom_worked_hours', 'custom_worked_hours');
+    }
+});
+
+function calculateWorkedHours(frm) {
+    const inDateTime = frm.doc.in_time ? frappe.datetime.get_datetime(frm.doc.in_time) : null;
+    const outDateTime = frm.doc.out_time ? frappe.datetime.get_datetime(frm.doc.out_time) : null;
+
+    if (inDateTime && outDateTime) {
+        const timeDifference = frappe.datetime.get_diff(outDateTime, inDateTime);
+
+        const hours = Math.floor(timeDifference / 60);
+        const minutes = timeDifference % 60;
+
+        frm.set_value('custom_worked_hours', hours + ':' + (minutes < 10 ? '0' : '') + minutes);
+    } else {
+        frm.set_value('custom_worked_hours', null);
+    }
+}

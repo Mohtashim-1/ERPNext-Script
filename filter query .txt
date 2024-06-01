@@ -1,0 +1,9 @@
+frm.set_query('practitioner', function() {
+			if (frm.doc.department) {
+				return {
+					filters: {
+						'department': frm.doc.department
+					}
+				};
+			}
+		});

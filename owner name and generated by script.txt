@@ -1,0 +1,3 @@
+{{frappe.get_fullname(doc.owner)}}
+
+{{doc.owner}}

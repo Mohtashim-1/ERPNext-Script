@@ -1,0 +1,68 @@
+client script
+
+frappe.ui.form.on('Purchase Requisition', {
+  refresh(frm) {
+    frm.trigger("prepare_custom_button");
+  },
+
+  prepare_custom_button(frm) {
+    frm.add_custom_button(("Get Material Receipt"), () => {
+      let fields = get_prompt_fields();
+      frappe.prompt(fields, (d) => {
+        frm.events.get_material_receipt(d); // This line caused the error
+      console.log(d)
+          
+      }, __("Set Values"), __("GET MR"));
+      console.log(fields)
+      
+    });
+  },
+
+  // The missing function:
+  get_material_receipt(frm, dialog_values) {
+    frappe.call({
+      method: "get_material_request", // Assuming this points to the Python function
+      args: dialog_values,
+      callback(r) {
+        if (r.message) {
+            console.log(frm.status)
+            console.log(dialog_values.status)
+          frappe.model.add_child('items', {
+            "item_code": r.message
+          });
+          frm.refresh_field('items');
+          console.log(items)
+        }
+      }
+    });
+  }
+});
+
+var get_prompt_fields = () => {
+  return [
+    {
+      label: __('Document Name'),
+      fieldname: 'name',
+      fieldtype: 'Link',
+      options: 'Material Request'
+}
+];
+}
+
+
+server script
+
+
+form = frappe.form.dict
+
+# frappe.response["message"] = frappe.get_all('Material Request')
+a = frappe.get_doc("Material Request","MAT-MR-2024-00002",fields={"name","purpose"})
+# frappe.response["message"] = frappe.get_doc("Material Request","MAT-MR-2024-00002")
+# frappe.response["message"] = frappe.get_doc("Material Request","MAT-MR-2024-00002")
+# frappe.msgprint(a.name)
+# frappe.errprint({
+#     a.status,
+#     a.material_request_type
+# })
+# frappe.msgprint(a.transaction_date)
+

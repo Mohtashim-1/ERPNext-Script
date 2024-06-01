@@ -1,0 +1,148 @@
+js
+
+word vs keyword
+variables and constants
+
+
+
+
+
+
+
+
+
+--------------------------------------------------
+word vs keyword
+------------------------------------------------
+word : anything which has a meaning is a word
+
+keyword : anything which has a meaning is a keyword
+
+chacha = word
+for = keyword
+-------------------------------------------------
+variables and constants
+-------------------------------------------------------
+code mai koi bhi data store karny kai liye variable bana hai
+
+variable ki value badalti hai
+constants ki value nahi badalti hai
+
+
+var a = 12
+var b = "mohtashim"
+--------------------------------
+hoisting
+-----------------------------------
+variable ko banae se pehly use karsaktai hai
+variables and functions are hoisted which means their declaration is moved on the top of the code 
+5 line mai banao 
+aur 4 mai bhi use karsakte hai
+var a = 12
+var a ; // declaration //means this line will be moved on top of the code 
+a = 12; // initiazation
+
+
+
+-----------------------------------
+hosting and hoisting is different Mr. Chaman
+--------------------------------------
+
+undefined and not defined
+
+undefined - defied hai value defined nahi hai jis ka pata hai lekin value nahi pata hai 	
+un defied - jis chez ki existance hi nahi hai
+-------------------------------------------------
+premitive and refrence 
+-----------------------------------------------
+premitive - number, string, undefined, null, bigint, number
+refrence - [] {} ()
+aisi koi bhi value jisko copy karny par real copy nahi hota balke us real value ka refrence pass hojata hai ussy hum refrence copy hojata hai wo refrence hai 
+aisi koi bhi value jisko copy karny par real copy hota balke us real value copy  hojati hai ussy hum premitive kehte hai 
+
+--------------------------------------------
+conditional - if else if else
+--------------------------------------------
+jab bhi baat agar magar paraye gi ya phir aesa wesa hojaye waha conditional ayengi
+if (condition)
+	{
+		statement
+	}else if(condition){
+		statement
+	}else{
+		statement
+	}
+	
+-------------------------------------------------.
+loops - for while
+----------------------------------------------------
+loop ka matlab repeat
+
+
+for(start;end;change){
+
+}
+
+for (var i = 0; i<11; i++){
+	console.log(i)
+}
+
+
+-------------------------------------
+start
+while(condition){
+	statement
+}
+
+var i= 0;
+while(i++){
+	i<=10;
+}
+
+----------------------------------------
+functions
+---------------------------------------
+jab ap apna code future mai chalana chahte hum
+jab ap apna code reuse karna chahte hu
+jab ap code chalana chahta hu har bar with 	different data
+
+function ka matlab ap kuch code ko likh kar koi naam deisakte hai
+function = naam deina
+
+function fnname(variable){
+	statement
+}
+argument = real value jo hum deite hai function chalate waqt
+parameter = variables jin mai value store hoti hai argumemnt wali
+
+
+--------------------------------------------
+arrays
+----------------------------------------------
+hum ek variable mein ek value store karpate hai par jab hamein ek se ziada value store karni haoti hai tab phir hum array use karty hai
+matlab kai array apko freedom deita hai ek se jyada value use karny ki
+
+
+var a = [1,2,2,3]
+console.log(a)
+
+---------------------------------------
+push , pop , shift, unshift
+------------------------------------------
+var arr = [1,2,3,4,5,6,7,8,9]
+arr.pop(); //last value mai se aik kaam hojati hai //1,2,3,4,5,6,7,8
+arr.push(9); //last mai aik value add hojati hai //1,2,3,4,5,6,7,8,9
+arr.shift(); // first value mai se aik value hatata hai //1,2,3,4,5,6,7,8,9
+arr.unshift(0); // first value mai se aik value add karta hai //0,1,2,3,4,5,6,7,8,9
+arr.splice(starting, last value count from starting)
+--------------------------------------------
+object 
+------------------------------------------
+ek bande se ziada ki baat kari tu hua array 
+ek bande kai bare mai sari battei ki wo hue object 
+ek bande ki values ko hold karna in a key value pairs
+
+1. blank object
+var a = {} 
+
+

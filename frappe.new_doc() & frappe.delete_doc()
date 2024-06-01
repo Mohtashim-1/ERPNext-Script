@@ -1,0 +1,21 @@
+frappe.new_doc() & frappe.delete_doc()
+
+def validate(self):
+	self.new_document()
+	
+def new_document():
+	doc.frappe.new_doc('Parent Doc')
+	doc.first_name="Neil"
+	doc.last_name="Nitin"
+	doc.age=10
+	doc.save()
+	
+	
+=============================
+delete_doc
+
+======================
+frappe.delete_doc(doctype, name)
+
+def validate(self):
+	sel.frappe.delete_doc('Parent Doc','Neil')

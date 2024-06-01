@@ -1,0 +1,27 @@
+sum1 = 0
+sum2 = 0
+sum_3 = 0
+OT_hours_list = frappe.get_all("Overtime Approval Request",filters={
+                "employee": ["=", doc.employee],
+                "date": ["Between", [doc.start_date,doc.end_date]],
+                "docstatus": ["=", 1] 
+            })
+if len(OT_hours_list) > 0 :
+    thislist = []
+    for item in OT_hours_list:
+        over_time = frappe.get_doc("Overtime Approval Request", item.name)
+        if over_time.date in thislist:
+            pass
+        else:
+            thislist.append(over_time.date)
+            if over_time.overtime_type == "Overtime":
+                sum1 = over_time.approved_hours + sum1
+            elif over_time.overtime_type == "Part Time":
+                sum2 = over_time.approved_hours + sum2
+            elif over_time.overtime_type == "Part-Time Contract":
+                sum_3 = over_time.approved_hours + sum_3
+            else:
+                pass
+    doc.approved_hours = sum1
+    doc.parttime_approved_hours = sum2
+    doc.parttime_contract_ot = sum_3

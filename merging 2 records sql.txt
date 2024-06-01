@@ -1,0 +1,14 @@
+SELECT 
+    in_record.employee, 
+    in_record.employee_name, 
+    in_record.time AS check_in_time, 
+    out_record.time AS check_out_time
+FROM 
+    `tabEmployee Checkin` AS in_record
+JOIN 
+    `tabEmployee Checkin` AS out_record
+ON 
+    in_record.employee = out_record.employee
+    AND in_record.log_type = 'IN'
+    AND out_record.log_type = 'OUT'
+    AND DATE(in_record.time) = DATE(out_record.time)

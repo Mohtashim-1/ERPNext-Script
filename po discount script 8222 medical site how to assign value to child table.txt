@@ -1,0 +1,28 @@
+frappe.ui.form.on('Purchase Order Item', {
+    item_code: function(frm, cdt, cdn) {
+        calculate_gross(frm, cdt, cdn);
+    },
+    qty: function(frm, cdt, cdn) {
+        calculate_gross(frm, cdt, cdn);
+    },
+    rate: function(frm, cdt, cdn) {
+        calculate_gross(frm, cdt, cdn);
+    },
+    discounted_amount: function(frm, cdt, cdn) {
+        calculate_gross(frm, cdt, cdn);
+    },
+    amount: function(frm, cdt, cdn) {
+        calculate_gross(frm, cdt, cdn);
+    },
+});
+
+function calculate_gross(frm, cdt, cdn) {
+    let row = locals[cdt][cdn];
+    var rate = row.rate;
+    var qty = row.qty;
+    var gross = rate * qty;
+    var discounted_amount = row.discounted_amount;
+    var amount = gross - discounted_amount;
+    frappe.model.set_value(cdt,cdn,'amount',amount);
+    frappe.model.set_value(cdt, cdn, 'gross', gross);
+}

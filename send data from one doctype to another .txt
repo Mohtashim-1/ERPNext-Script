@@ -1,0 +1,10 @@
+frappe.get_doc(dict(
+	doctype = 'ToDo',
+	owner = "tahir.dhedhi@gmail.com",
+	description = "Inline Stitching Inspection",
+	allocated_to = "tahir.dhedhi@gmail.com",
+	reference_type = "Inline Stitching Inspection",
+	reference_name = doc.name,
+	assigned_by = doc.owner
+)).insert() 
+

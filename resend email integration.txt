@@ -1,0 +1,35 @@
+resend email
+
+api : re_N8EroDRy_4W18e7Q2fG6rKK9BSd7QQNC7
+
+
+
+====================================
+node.js
+
+import { Resend } from 'resend';
+
+const resend = new Resend('re_N8EroDRy_4W18e7Q2fG6rKK9BSd7QQNC7');
+
+resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: 'shoaibmohtashim973@gmail.com',
+  subject: 'Hello World',
+  html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+});
+
+========================================
+python
+
+import { Resend } from 'resend';
+
+const resend = new Resend('re_N8EroDRy_4W18e7Q2fG6rKK9BSd7QQNC7');
+
+resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: 'shoaibmohtashim973@gmail.com',
+  subject: 'Hello World',
+  html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+});
+
+

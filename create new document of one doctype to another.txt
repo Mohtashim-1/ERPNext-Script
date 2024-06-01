@@ -1,0 +1,10 @@
+doc = frappe.get_doc({
+    'doctype': 'Sales Invoice',
+    'title': 'New Task',
+    'patient': "Abdul Kareem - 2",
+    'base_grand_total ': 1.0
+})
+doc.insert()
+
+
+for creating new document from one doctype to another doctype

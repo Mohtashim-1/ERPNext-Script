@@ -1,0 +1,18 @@
+frappe.db.get_list()
+database api call which get all list of doctype means it will give you all records/ documents
+========================
+
+frappe.db.get_list(doctype,filters, or filters, fields, order by, group by, start, page_lenght)
+
+def validate(self):
+	self.get_list()
+	
+def get_list():
+	doc = frappe.db.get_list('Parent Doc',filters={
+		'enable':1
+	},
+	fields=[first_name,last_name]
+	)
+	
+for d in doc:
+	frappe.msgprint("The first name is {0} and the last name is {1}").format(d.first_name, d.last_name)

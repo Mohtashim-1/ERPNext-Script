@@ -1,0 +1,27 @@
+// send data from clinic opd slip doctype to sales invoice doctype
+
+current_date = frappe.utils.today()
+doc = frappe.get_doc({
+    'doctype': 'Sales Invoice',
+    'patient': doc.patient,
+    'customer':doc.patient,
+    'company':  doc.company,
+    'posting_date':doc.posting_date,
+     'conversion_rate':1,
+     "income_account": "Sales - HOM",
+     'due_date': current_date,
+     'party_account_currency': 'PKR',
+     
+    'items':[
+        {
+            'item_code':'OPD Charges',
+            'qty': 1,
+            'rate': doc.paid_amount,
+            "income_account": "Sales - HOM",
+        }
+        ]
+})
+# frappe.msgprint("Patient:", doc.patient, 'SI had been submitted')
+doc.insert()
+doc.submit()
+frappe.msgprint('Sales Invoice had been submitted', {})

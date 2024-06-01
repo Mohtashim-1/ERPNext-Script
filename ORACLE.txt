@@ -1,0 +1,181 @@
+cd /var/run
+remove 
+rm -f yum.pid
+yum update
+
+presiquisite
+yum install -y oracle-database-preinstall-19c
+
+yum remove firewalld
+
+date and time
+computer name
+directory generate
+
+ORACLE CLASS 15-01-2024
+
+-------------------------------------
+# for comments
+multiple databse ke liye unique name
+base jahan oracle installed hoga
+home  
+--------------------------------------
+eport ORACLE_BASE= /01
+export ORACLE JOME = $ORACLE_BASE/software/
+
+------------------------------
+open terminal in script folder
+-------------------------------
+ls
+ls -ltrh
+source setEnv.sh --execute file
+## echo for printing variable value
+echo $ORACLE_BASE
+sqlplus / as sysdba
+sql > startup
+ls -lrt
+source setEnv.sh
+echo $ORACLE_HOME
+lsnrctl
+
+
+
+
+-------------------------
+start_all.sh file in script
+--------------------------
+export ORAENV_ASK = NO
+
+export ORAENV_ASK = YES
+
+----------------------------
+
+
+
+---------------------------
+for setting port 
+---------------------------
+localhost:5500
+systemctl status firewalld
+systemctl disable firewalld
+
+select DXMS_XNB_CONFIG .GETHTTPPORT()
+select DXMS_XNB_CONFIG .SETHTTPPORT(5500)
+
+-------------------------------
+
+
+
+import export method
+02 method
+1. old method export import 
+2. export data form (empty database, all objects)
+
+
+
+------------------------------------
+install sqldeveloper-23
+install sqldeveloper-23.1.1-345.2114
+
+go to home/oracle/download
+ls -ltrsh
+rpm -Uvh sqldeveloper-23.1.1-345.2114.noarch.rpm
+-----------------------------------
+download every thing with root but user have privilaged to run the file
+------------------------------------
+check if the sql developer is download
+open terminal in u01/
+sqldeveloper
+-----------------------------------
+java environment download
+x64 compressed archive java download jdk 
+-------------------------------------
+OPEN TERMINAL IN U01/ SCRIPT
+----------------------------------
+export ORACLE_BASE=/u01
+mkdir 
+export ORACLE_HOME=$ORACLE_BASE/software/193000_db
+export ORACLE_STD = orcl
+export path=$ORACLE_HOME/b
+export PATH = $ORACLE_HOME/bin:$JAVA_CLASS/bin:$PATH 
+EXPORT Ptmp tmdir temp
+export CLASS_PATH =$JAVA_HOME/lib
+_JAVA
+
+-------------------------------------------
+su oracle
+cd /home/oracle/Downloads/
+rpm -Uvh jdk-11.0.20_linux-x64_bin
+download jdk-11.0.20_linux-x64_bin.rpm
+java -version
+exit
+su root(su means switch user)
+// copy environment to another user and also give prefrence to rpm download
+logout oracle
+java - version
+cd /u01/scripts/
+. SetEnv
+sqlplussys as sysdba
+sqldeveloper
+alhamdullilah chal gaya
+connect database
+click new
+database name sysdba
+baqi dekh kar karleina ************************
+--------------------------------------------------
+--------------------------------------------------
+
+**startup mai dalny kai liye
+
+
+
+-------------------------------------------
+OPEN TERMINAL UO1/TERMINAL
+
+----------------------------------
+*****************band hai yaha par aik bar check karleina *****************
+---------------------------
+cd /u01/scripts/
+ls
+cd //
+cd \
+ls
+cd /u01/scripts/
+ls
+cd /u01
+Scripts
+lssource setEnv.shjava -version
+sqldeveloper
+we install sqldeveloper from rpm and for that we got an error
+and we had to set display
+xdpyinfo(comand)
+we had to again download java jdk
+and we are installing javajdk 11
+
+
+-------------------------------------------
+
+cat /etc/oratab
+db:N
+vi /etc/oratab
+nano /etc/oratab
+sqlplus
+sys as sysdba
+click on database select yes
+shutdown database and restart machine
+shutdown immediate
+restart machine
+/u01/Script/setEnv.sh
+sqlplus
+sys as sysdba
+startup
+
+open terminal in different talbe
+profile
+
+vi .bash_profile
+export PATH 
+/u01/Scripts/setEnv.sh 
+rc.local etc mai hoti hai
+sudo (super user do!)
+----------------------------------

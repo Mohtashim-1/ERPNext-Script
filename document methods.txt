@@ -1,0 +1,49 @@
+document methods
+
+====================
+doc.insert
+it will check user permission and execute before insert, validate, on_update,after_insert,methods if there are any written controller.
+
+----------------------------
+insert()
+--------------------------
+def validate(self):
+	self.new_document()	
+def new_document():
+	doc=frappe.new_doc('Parent Doc')
+	doc.first_name = 'Neel'
+	doc.last_name = 'Laya'
+	doc.age = 23
+	doc.insert()
+	
+----------------------------
+save()
+--------------------
+def validate(self):
+	self.new_document()
+def new_document():
+	doc=frappe.new_doc('Parent Doc')
+	doc.first_name = 'Neel'
+	doc.last_name = 'Laya'
+	doc.age = 23
+	doc.save()
+	
+=============================
+doc.delete()
+=============================
+def validate(self):
+	self.delete_document()
+	
+def delete_document(self):
+	doc = frappe.get_doc("Parent Doc","Ferry")
+	doc.delete()
+	
+==================================
+doc.db.set()
+================================
+def validate(self):
+	self.db_set_document()
+	
+def db_set_document(self):
+	doc = frappe.get_doc("Parent Doc", 'Laya')
+	doc.db.set('age',45)

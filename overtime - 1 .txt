@@ -1,0 +1,72 @@
+==================================
+overtime
+
+=======================================
+attendance doctype
+=================================
+
+add a field in attendance doctype with field name : overtime_hours
+
+frappe.ui.form.on('Attendance', {
+    employee: function(frm, cdt, cdn) {
+        var doc = frm.doc;
+        var overtime_hours = 0;
+
+        if (doc.working_hours > 8) {
+            overtime_hours = doc.working_hours - 8;
+        }
+
+        frm.set_value("overtime_hours", overtime_hours);
+    }
+});
+
+
+=========================================
+salary slip
+============================================
+create a field in salary slip with total_overtime_hours
+
+// In your_customization.js
+frappe.ui.form.on('Salary Slip', {
+    employee: function(frm) {
+        // Fetch Attendance records for the employee and payroll period
+        frappe.db.get_list('Attendance', {
+            filters: {
+                employee: frm.doc.employee,
+                payroll_period: frm.doc.payroll_period
+            },
+            fields: ['overtime_hours']
+        }).then(function(attendance_records) {
+            // Calculate total overtime hours
+            var total_overtime_hours = attendance_records.reduce(function(total, record) {
+                return total + record.overtime_hours;
+            }, 0);
+
+            // Update the total overtime hours field in the Salary Slip
+            frm.set_value('total_overtime_hours', total_overtime_hours);
+        });
+    }
+});
+
+
+======================================
+overtime hourly rate calculation based on salary 
+=====================================
+
+add field in employee with name overtime_hour_rate
+
+frappe.ui.form.on('Employee', {
+	ctc:function(frm){
+	    let overtime_hour_rate = frm.doc.overtime_hour_rate
+	    let ctc = frm.doc.ctc
+	    overtime_hour_rate = ctc/(30/8)
+	    frm.set_value("overtime_hour_rate",overtime_hour_rate)
+	    
+	    frm.refresh()
+	    
+	}
+})
+
+===================================
+fetch this overtime_hour_rate field in salary slip as "data" fieldtype 
+in salary componenent create a salary componenet with overtime name, ot abbreviation, no condition, just add formula, total_overtime_hours * ot_rate

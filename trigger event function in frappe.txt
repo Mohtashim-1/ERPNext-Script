@@ -1,0 +1,17 @@
+Trigger Event/Function
+
+frm.trigger()
+====================================
+
+refresh:function(frm){
+
+	if(!frm.is_new()){
+		frm.trigger('test_fun');
+	}
+	enable:function(frm){
+		frappe.msgprint(__{'the event is triggered'})
+	},
+	test_fun(frm){
+		frappe.msgprint(__{'this message is from test_fun'})
+	}
+}

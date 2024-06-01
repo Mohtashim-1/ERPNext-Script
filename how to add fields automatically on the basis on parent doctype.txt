@@ -1,0 +1,85 @@
+frappe.ui.form.on('Sales Order', {
+    customer: function(frm) {
+        let no_of_rows = 5;
+        let item_code = "100GSM Disperce Print-GRE-245CM-C";
+
+        if (!no_of_rows || no_of_rows <= 0) {
+            frappe.msgprint(__('Please enter a valid number of rows.'));
+            return;
+        }
+
+        frm.clear_table("items");
+
+        for (let i = 0; i < no_of_rows; i++) {
+            let new_row = frm.add_child("items");
+            frappe.model.set_value(new_row.doctype, new_row.name, 'item_code', item_code);
+        }
+        frm.refresh_field("items");
+    }
+}); 
+
+
+==============================
+
+
+frappe.ui.form.on('Courier Gate Pass', {
+    no_of_packages: function(frm) {
+        let no_of_rows = 5;
+        console.log(no_of_rows)
+        let item_code = "33 X 26 X 20";
+        console.log(item_code)
+        // frappe.errprint({no_of_rows})
+        if (!no_of_rows || no_of_rows <= 0) {
+            frappe.msgprint(__('Please enter a valid number of rows.'));
+            return;
+        }
+
+        frm.clear_table("items");
+
+        for (let i = 0; i < no_of_rows; i++) {
+            console.log(i)
+            let new_row = frm.add_child("items");
+            console.log(i)
+            frappe.model.set_value(new_row.doctype, new_row.name, 'item_code', item_code);
+        }
+        frm.refresh_field("items");
+    }
+});
+
+====================================
+
+
+==============================
+server script not working 
+==============================
+frappe.msgprint("123")
+row = doc.no_of_packages
+for row in doc.no_of_packages:
+    frappe.errprint("row")
+
+# frappe.msgprint(num_packages)
+frappe.errprint(doc.no_of_packages)
+frappe.msgprint('Message')
+
+
+
+
+
+===========================
+import frappe
+from frappe.model.document import Document
+
+class CourierGatePass(Document):
+	frappe.msgprint('Message')
+	self.set_dimension()
+
+	def set_dimension(self):
+		frappe.msgprint('Message')
+		row = self.no_of_packages
+		for row in self.no_of_packages:
+			frappe.msgprint('Message')
+			frappe.errprint("Message")
+			frappe.errprint(row)
+			
+================================
+

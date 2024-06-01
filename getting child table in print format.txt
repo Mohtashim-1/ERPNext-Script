@@ -1,0 +1,12 @@
+
+{% for test in doc.lab %}
+<table style="border-collapse: collapse;border:1px solid black">
+    <tr>
+       <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{test.lab}}</td>
+         <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{test.laboratory}}</td>
+          <td style="width:200px; margin:100px; padding:0; line-height: 0;">{{test.amount}}</td> 
+    </tr>
+</table>
+
+    
+        {% endfor %}
